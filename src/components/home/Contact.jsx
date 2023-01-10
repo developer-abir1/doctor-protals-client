@@ -13,12 +13,12 @@ const Contact = () => {
   };
 
   return (
-    <div className="doctorApponment">
-      <div className="  w-1/2 container m-auto py-4 ">
+    <div className="doctorApponment  ">
+      <div className="  w-[350px] md:w-[500px]  container m-auto py-4 ">
         <h2 className=" text-secondary text-center mt-5 text-xl ">
           Contact Us
         </h2>
-        <h2 className=" text-4xl text-center my-5 text-white capitalize">
+        <h2 className=" text-3xl font-semibold text-center my-5 text-white capitalize">
           Stay connected with us
         </h2>
         <form onSubmit={handleSubmit} className="bg-white p-6 rounded-lg  ">

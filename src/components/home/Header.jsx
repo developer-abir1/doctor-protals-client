@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import photo from '../../assets/image/chair1.png';
 import bgBanner from '../../assets/image/cover-landing-bg.png';
 
@@ -20,9 +21,11 @@ const Header = () => {
               voluptates. Eos, maxime ipsam modi consequatur veniam vel? Et
               vitae obcaecati neque ex!
             </p>
-            <button className="btn btn-secondary text-white bg-gradient-to-r from-primary to-secondary ">
-              Get Started
-            </button>
+            <Link to={'/appointment'}>
+              <button className="btn btn-secondary text-white bg-gradient-to-r from-primary to-secondary ">
+                Get Started
+              </button>
+            </Link>
           </div>
         </div>
       </div>
