@@ -5,7 +5,7 @@ import bgBanner from '../../assets/image/cover-landing-bg.png';
 const Header = () => {
   return (
     <div className="container m-auto">
-      <div className="hero min-h-screen ">
+      <div className="hero   h-[500px] ">
         <div className="hero-content flex-col lg:flex-row-reverse">
           <img src={photo} className="max-w-md rounded-lg shadow-2xl" />
           <div className="md:mr-32 mr-0 ">

@@ -5,7 +5,7 @@ import Navbar from '../components/shared/Navbar';
 
 const Layout = () => {
   return (
-    <div className=" flex flex-col justify-between  min-h-screen    ">
+    <div className=" flex flex-col justify-between  min-h-screen container m-auto    ">
       <Navbar />
       <Outlet />
       <Footer />
