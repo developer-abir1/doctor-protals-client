@@ -18,7 +18,7 @@ const Testimonial = () => {
         </div>
       </div>
 
-      <div className="py-4 px-5 ">
+      <div className="py-4 px-5   ">
         <Swiper
           breakpoints={{
             576: {
@@ -27,7 +27,7 @@ const Testimonial = () => {
             },
             768: {
               width: 768,
-              slidesPerView: 1,
+              slidesPerView: 2,
             },
             1024: {
               width: 1024,
@@ -41,7 +41,7 @@ const Testimonial = () => {
         >
           {testimonialData.map((data) => (
             <SwiperSlide>
-              <div className="card w-96  bg-base-100  border">
+              <div className="card w-[94%] mr-4  bg-base-100  flex justify-center border">
                 <div className="card-body">
                   <p className="  text-justify text-xs">{data.description}</p>
                 </div>
