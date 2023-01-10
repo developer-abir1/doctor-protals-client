@@ -1,0 +1,10 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+.doctorApponment {
+  background-image: url(../src/assets/image/bg-blue\ 1.png);
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: cover;
+}
