@@ -7,9 +7,9 @@ const Header = () => {
     <div className="container m-auto">
       <div className="hero   n-none lg:h-[500px] ">
         <div className="hero-content flex-col lg:flex-row-reverse">
-          <img src={photo} className="max-w-md rounded-lg shadow-2xl" />
+          <img src={photo} className="  w-96  " />
           <div className="md:mr-32 mr-0 ">
-            <h1 className="text-6xl font-bold text-accent  capitalize">
+            <h1 className="md:text-6xl font-bold text-accent  capitalize text-3xl">
               Your New Smile Starts Here
             </h1>
             <p className="py-6">
