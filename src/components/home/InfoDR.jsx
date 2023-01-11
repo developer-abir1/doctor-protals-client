@@ -3,7 +3,7 @@ import { AiOutlineClockCircle } from 'react-icons/ai';
 import { FiMapPin, FiPhoneCall } from 'react-icons/fi';
 const InfoDR = () => {
   return (
-    <div className="   ">
+    <div className="    container m-auto ">
       <div className="  grid md:grid-cols-3   gap-4  grid-cols-1 px-4 py-4">
         {infoData.map((info) => (
           <div
