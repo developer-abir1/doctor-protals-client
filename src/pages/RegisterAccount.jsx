@@ -2,9 +2,8 @@ import React from 'react';
 import { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { Link } from 'react-router-dom';
-import { FcGoogle } from 'react-icons/fc';
 
-const LoginPage = () => {
+const RegisterAccount = () => {
   const {
     register,
     handleSubmit,
@@ -17,14 +16,25 @@ const LoginPage = () => {
 
   return (
     <div className="doctorApponment min-h-screen flex flex-col items-center">
-      <div className="   w-96 container m-auto ">
+      <div className="   w-96 container m-auto">
         <h2 className=" text-secondary text-center text-4xl mb-8">
-          Login an Account
+          Creact an Account
         </h2>
         <form
           onSubmit={handleSubmit(onSubmit)}
           className="bg-white p-6 rounded-lg  "
         >
+          <div className="mb-4">
+            <label className="block text-gray-700 font-medium mb-2">
+              Your Name:
+            </label>
+            <input
+              className="border border-gray-400 p-2 w-full"
+              type="text"
+              name="name"
+              {...register('name', { required: true })}
+            />
+          </div>
           <div className="mb-4">
             <label className="block text-gray-700 font-medium mb-2">
               Email:
@@ -33,13 +43,20 @@ const LoginPage = () => {
               className="border border-gray-400 p-2 w-full"
               type="email"
               name="email"
-              {...register('email', { required: 'Email is required' })}
+              {...register('email', { required: true })}
             />
-            {errors.email?.type && (
-              <span className="text-red-500">{errors?.email.message}</span>
-            )}
           </div>
-
+          <div className="mb-4">
+            <label className="block text-gray-700 font-medium mb-2">
+              Phone Number:
+            </label>
+            <input
+              className="border border-gray-400 p-2 w-full"
+              type="number"
+              name="phone"
+              {...register('phone', { required: true })}
+            />
+          </div>
           <div className="mb-4">
             <label className="block text-gray-700 font-medium mb-2">
               Password :
@@ -48,18 +65,15 @@ const LoginPage = () => {
               className="border border-gray-400 p-2 w-full"
               type="password"
               name="pasword"
-              {...register('password', { required: 'password is required' })}
+              {...register('password', { required: true })}
             />
-            {errors.password?.type && (
-              <span className="text-red-500">{errors?.password.message}</span>
-            )}
           </div>
           <div className="mb-4">
             <label className="block text-gray-700 font-medium mb-2">
-              Don't have an account?{' '}
-              <Link to="/register" className="text-secondary">
+              Alrady have an account?{' '}
+              <Link to="/login" className="text-secondary">
                 {' '}
-                register
+                Login
               </Link>
             </label>
           </div>
@@ -68,17 +82,9 @@ const LoginPage = () => {
             Submit
           </button>
         </form>
-        <div className="flex flex-col w-full border-opacity-50">
-          <div className="divider">OR</div>
-          <div className="grid h-20 card   rounded-box place-items-center">
-            <button className="btn   w-full">
-              <FcGoogle size={40} className="mr-12" /> CONTINUE WITH GOOGLE
-            </button>
-          </div>
-        </div>
       </div>
     </div>
   );
 };
 
-export default LoginPage;
+export default RegisterAccount;

@@ -1,105 +1,119 @@
 import React, { useState } from 'react';
 import Modal from 'react-modal';
+import { useForm } from 'react-hook-form';
+import { format } from 'date-fns';
 
-const AppoinmentFrom = ({ modalIsOpen, closeModal }) => {
-  const [name, setName] = useState('');
-  const [email, setEmail] = useState('');
-  const [message, setMessage] = useState('');
+const AppoinmentFrom = ({ treatments, seletedDate, setTreatments }) => {
+  const { name, slots } = treatments;
+  const date = format(seletedDate, 'PP');
+  const {
+    register,
+    handleSubmit,
 
-  const handleSubmit = (event) => {
-    event.preventDefault();
-    console.log(name, email, message);
-    // Here you can implement the functionality to send the message to the intended recipient.
-    // For example, you could use an Email library like nodemailer or send the message via an API
+    formState: { errors },
+  } = useForm();
+  const onSubmit = (data) => {
+    const form = {
+      appoinemntDate: date,
+
+      ...data,
+    };
+    console.log(form);
+    setTreatments(null);
   };
-
-  const customStyles = {
-    content: {
-      top: '50%',
-      left: '50%',
-      right: 'auto',
-      bottom: 'auto',
-      marginRight: '-50%',
-      transform: 'translate(-50%, -50%)',
-    },
-  };
-
-  Modal.setAppElement('#root');
 
   return (
-    <Modal
-      isOpen={modalIsOpen}
-      onRequestClose={closeModal}
-      style={customStyles}
-      contentLabel="Example Modal"
-    >
-      <div className="  w-[320px] md:w-[500px] h-[400px]  container m-auto py-4 ">
-        <h2 className=" text-secondary text-center  text-xl ">Contact Us</h2>
+    <div>
+      {/* Put this part before </body> tag */}
+      <input type="checkbox" id="my-modal-3" className="modal-toggle" />
+      <div className="modal">
+        <div className="modal-box relative">
+          <label
+            htmlFor="my-modal-3"
+            className="btn btn-sm btn-circle absolute right-2 top-2"
+          >
+            ✕
+          </label>
 
-        <form onSubmit={handleSubmit} className="bg-white p-6 rounded-lg  ">
-          <div className="mb-4">
-            <label className="block text-gray-700 font-medium mb-2">
-              Name:
-            </label>
-            <input
-              className="border border-gray-400 p-2 w-full"
-              type="text"
-              value={name}
-              onChange={(event) => setName(event.target.value)}
-            />
-          </div>
-          <div className="mb-4">
-            <label className="block text-gray-700 font-medium mb-2">
-              Email:
-            </label>
-            <input
-              className="border border-gray-400 p-2 w-full"
-              type="email"
-              value={email}
-              onChange={(event) => setEmail(event.target.value)}
-            />
-          </div>
-          <div className="mb-4">
-            <label className="block text-gray-700 font-medium mb-2">
-              Email:
-            </label>
-            <input
-              className="border border-gray-400 p-2 w-full"
-              type="email"
-              value={email}
-              onChange={(event) => setEmail(event.target.value)}
-            />
-          </div>
-          <div className="mb-4">
-            <label className="block text-gray-700 font-medium mb-2">
-              Email:
-            </label>
-            <input
-              className="border border-gray-400 p-2 w-full"
-              type="email"
-              value={email}
-              onChange={(event) => setEmail(event.target.value)}
-            />
-          </div>
-          <div className="mb-4">
-            <label className="block text-gray-700 font-medium mb-2">
-              Email:
-            </label>
-            <input
-              className="border border-gray-400 p-2 w-full"
-              type="email"
-              value={email}
-              onChange={(event) => setEmail(event.target.value)}
-            />
-          </div>
+          <h2 className=" text-secondary text-center  text-xl ">{name}</h2>
 
-          <button className="btn btn-primary  w-full  bg-gradient-to-r from-primary to-secondary text-white py-2 px-4 rounded-lg hover:bg-indigo-600">
-            Submit
-          </button>
-        </form>
+          <form
+            onSubmit={handleSubmit(onSubmit)}
+            className="bg-white p-6 rounded-lg  "
+          >
+            <div className="mb-4">
+              <label className="block text-gray-700 font-medium mb-2">
+                Date:
+              </label>
+              <input
+                className="border font-semibold bg-gray-200 p-2 w-full"
+                type="text"
+                name="date"
+                value={date}
+                disabled
+              />
+            </div>
+
+            <div className="mb-4">
+              <label className="block text-gray-700 font-medium mb-2">
+                Select Time:
+              </label>
+              <select
+                name="solts"
+                {...register('solts')}
+                className="select select-bordered w-full  "
+              >
+                {slots.map((slot) => (
+                  <option value={slot}>{slot}</option>
+                ))}
+              </select>
+            </div>
+            <div className="mb-4">
+              <label className="block text-gray-700 font-medium mb-2">
+                Your Name:
+              </label>
+              <input
+                className="border border-gray-400 p-2 w-full"
+                type="text"
+                name="name"
+                {...register('name', { required: true })}
+              />
+            </div>
+            <div className="mb-4">
+              <label className="block text-gray-700 font-medium mb-2">
+                Email:
+              </label>
+              <input
+                className="border border-gray-400 p-2 w-full"
+                type="email"
+                name="email"
+                {...register('email', { required: true })}
+              />
+            </div>
+            <div className="mb-4">
+              <label className="block text-gray-700 font-medium mb-2">
+                Phone Number:
+              </label>
+              <input
+                className="border border-gray-400 p-2 w-full"
+                type="number"
+                name="phone"
+                {...register('phone', { required: true })}
+              />
+            </div>
+
+            <button className="btn btn-primary  w-full  bg-gradient-to-r from-primary to-secondary text-white py-2 px-4 rounded-lg hover:bg-indigo-600">
+              Submit
+            </button>
+          </form>
+        </div>
       </div>
-    </Modal>
+    </div>
   );
 };
 
 export default AppoinmentFrom;
+
+//
+
+// // {
