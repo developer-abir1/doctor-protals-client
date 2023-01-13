@@ -50,12 +50,12 @@ const AuthProvider = ({ children }) => {
 
   const handleFileUpload = async (image) => {
     const file = image;
+
     const storageRef = app.storage().ref();
     const fileRef = storageRef.child(file.image);
     await fileRef.put(file);
     const url = await fileRef.getDownloadURL();
     setImageUrl(url);
-    fileInput.current.value = '';
   };
 
   const authInfo = {

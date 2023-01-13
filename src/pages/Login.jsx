@@ -7,6 +7,8 @@ import { BiShow, BiHide } from 'react-icons/bi';
 import { AuthContext } from '../context/AuthProvider';
 import Loading from '../components/shared/Loading';
 import { toast } from 'react-hot-toast';
+import images from '../assets/image/bg-blue1.png';
+
 const LoginPage = () => {
   const [error, setError] = useState();
   const {
@@ -43,8 +45,17 @@ const LoginPage = () => {
   if (loading) {
     contnet = <Loading />;
   }
+
+  const bgBanner = {
+    backgroundImage: `url(${images})`,
+    backgroundSize: 'cover',
+  };
+
   return (
-    <div className="doctorApponment min-h-screen flex flex-col items-center">
+    <div
+      style={bgBanner}
+      className="doctorApponment min-h-screen flex flex-col items-center"
+    >
       <div className="   w-96 container m-auto ">
         <h2 className=" text-secondary text-center text-4xl mb-8">
           Login an Account

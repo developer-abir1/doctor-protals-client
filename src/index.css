@@ -3,13 +3,13 @@
 @tailwind utilities;
 
 .doctorApponment {
-  background-image: url('../src/assets/image/bg-blue\ 1.png');
+  background-image: url('../src/assets/image/bg-blue1.png');
   background-repeat: no-repeat;
   background-position: center;
   background-size: cover;
 }
 .footerBg {
-  background-image: url('../src/assets/image/footer-bg\ 1\ 1.png');
+  background-image: url('../src/assets/image/footer-bg.png');
   background-repeat: no-repeat;
   background-position: center;
   background-size: cover;
