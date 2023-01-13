@@ -1,20 +1,48 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { Link } from 'react-router-dom';
 import { FcGoogle } from 'react-icons/fc';
-
+import { BiShow, BiHide } from 'react-icons/bi';
+import { AuthContext } from '../context/AuthProvider';
+import Loading from '../components/shared/Loading';
+import { toast } from 'react-hot-toast';
 const LoginPage = () => {
+  const [error, setError] = useState();
   const {
     register,
     handleSubmit,
-
     formState: { errors },
   } = useForm();
+
+  const { singIn, loading, setLoading, user, refresh } =
+    useContext(AuthContext);
+
   const onSubmit = (data) => {
-    console.log(data);
+    singIn(data.email, data.password)
+      .then((data) => {
+        if (data.operationType === 'signIn') {
+          toast.success(`Welcome ${user?.displayName} `, {
+            duration: 4000,
+            position: 'bottom-right',
+          });
+          setError('');
+        }
+      })
+      .catch((err) => {
+        setError(err.message);
+      });
+  };
+  const [passwordVisible, setPasswordVisible] = useState(false);
+
+  const handleClick = () => {
+    setPasswordVisible(!passwordVisible);
   };
 
+  let contnet;
+  if (loading) {
+    contnet = <Loading />;
+  }
   return (
     <div className="doctorApponment min-h-screen flex flex-col items-center">
       <div className="   w-96 container m-auto ">
@@ -30,30 +58,42 @@ const LoginPage = () => {
               Email:
             </label>
             <input
-              className="border border-gray-400 p-2 w-full"
+              className="border border-gray-400 p-2 w-full text-lg"
               type="email"
               name="email"
-              {...register('email', { required: 'Email is required' })}
+              {...register('email', {
+                required: 'Email is required',
+              })}
             />
             {errors.email?.type && (
               <span className="text-red-500">{errors?.email.message}</span>
             )}
           </div>
-
-          <div className="mb-4">
-            <label className="block text-gray-700 font-medium mb-2">
-              Password :
-            </label>
+          <label className="block text-gray-700 font-medium mb-2">
+            Password:
+          </label>
+          <div className="relative rounded-md shadow-sm mb-4">
             <input
-              className="border border-gray-400 p-2 w-full"
-              type="password"
-              name="pasword"
-              {...register('password', { required: 'password is required' })}
+              className="border border-gray-400 p-2 w-full text-lg"
+              type={passwordVisible ? 'text' : 'password'}
+              {...register('password', {
+                required: 'password is required',
+              })}
             />
-            {errors.password?.type && (
-              <span className="text-red-500">{errors?.password.message}</span>
-            )}
+            <div className="absolute top-0 right-0 mt-3 mr-3">
+              <button type="button" onClick={handleClick}>
+                {passwordVisible ? (
+                  <BiShow size={30} className="text-secondary" />
+                ) : (
+                  <BiHide size={30} className=" text-accent" />
+                )}
+              </button>
+            </div>
           </div>
+          {errors.password?.type && (
+            <span className="text-red-500">{errors?.password.message}</span>
+          )}
+
           <div className="mb-4">
             <label className="block text-gray-700 font-medium mb-2">
               Don't have an account?{' '}
@@ -63,19 +103,23 @@ const LoginPage = () => {
               </Link>
             </label>
           </div>
-
-          <button className="btn btn-primary  w-full  bg-gradient-to-r from-primary to-secondary text-white py-2 px-4 rounded-lg hover:bg-indigo-600">
-            Submit
+          {error && <span className="text-red-500">{error}</span>}
+          {contnet}
+          <button
+            type="submit"
+            className="btn btn-primary  w-full  bg-gradient-to-r from-primary to-secondary text-white py-2 px-4 rounded-lg hover:bg-indigo-600"
+          >
+            Login
           </button>
-        </form>
-        <div className="flex flex-col w-full border-opacity-50">
-          <div className="divider">OR</div>
-          <div className="grid h-20 card   rounded-box place-items-center">
-            <button className="btn   w-full">
-              <FcGoogle size={40} className="mr-12" /> CONTINUE WITH GOOGLE
-            </button>
+          <div className="flex flex-col w-full border-opacity-50  ">
+            <div className="divider       ">OR</div>
+            <div className="grid h-20 card   rounded-box place-items-center">
+              <button className="btn   w-full" type="button">
+                <FcGoogle size={40} className="mr-12" /> CONTINUE WITH GOOGLE
+              </button>
+            </div>
           </div>
-        </div>
+        </form>
       </div>
     </div>
   );
