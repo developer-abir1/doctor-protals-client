@@ -1,12 +1,11 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import photo from '../../assets/image/chair1.png';
-import bgBanner from '../../assets/image/cover-landing-bg.png';
 
 const Header = () => {
   return (
     <div className="container m-auto">
-      <div className={`hero    h-none lg:h-[500px]    `}>
+      <div className={`hero    h-none lg:h-[500px]    headerBanner  `}>
         <div className="hero-content flex-col lg:flex-row-reverse">
           <img src={photo} className="  w-96  " />
           <div className="md:mr-32 mr-0 ">

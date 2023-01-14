@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import photo from '../../assets/image/chair1.png';
-import { format } from 'date-fns';
 import { DayPicker } from 'react-day-picker';
 const AppointmentBanner = ({ seletedDate, setSelectedDate }) => {
   const css = `

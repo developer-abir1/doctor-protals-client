@@ -9,14 +9,11 @@ const Navbar = () => {
 
   const pathname = useLocation();
 
-  const { user, logOut, setLoading, loading, refresh } =
-    useContext(AuthContext);
+  const { user, logOut } = useContext(AuthContext);
 
   const handleLogout = () => {
     logOut()
-      .then(() => {
-        refresh();
-      })
+      .then(() => {})
       .catch((err) => console.log(err));
   };
 

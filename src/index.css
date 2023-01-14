@@ -14,3 +14,9 @@
   background-position: center;
   background-size: cover;
 }
+.headerBanner {
+  background-image: url('../src/assets/image/cover-landing-bg.png');
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: cover;
+}

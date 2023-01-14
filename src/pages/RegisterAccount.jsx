@@ -1,7 +1,7 @@
 import React, { useContext } from 'react';
 import { useState } from 'react';
 import { useForm } from 'react-hook-form';
-import { Link } from 'react-router-dom';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { BiShow, BiHide } from 'react-icons/bi';
 import { AuthContext } from '../context/AuthProvider';
 import Loading from '../components/shared/Loading';
@@ -24,6 +24,17 @@ const RegisterAccount = () => {
     formState: { errors },
   } = useForm();
 
+  let content;
+  if (loading) {
+    content = <Loading />;
+  }
+  //
+
+  const navigate = useNavigate();
+  const location = useLocation();
+
+  const from = location.state?.from?.pathname || '/';
+
   const onSubmit = (data) => {
     createAccount(data.email, data.password)
       .then((userCredential) => {
@@ -40,6 +51,7 @@ const RegisterAccount = () => {
           .then((info) => {
             console.log(info);
             // toast.success('Account create successfully', { autoClose: 500 });
+
             toast.success(
               `Congress!  ${user?.displayName} welcome to doctor protal  `,
               {
@@ -47,21 +59,19 @@ const RegisterAccount = () => {
                 position: 'bottom-top',
               }
             );
+            navigate(from, { replace });
           })
-          .catch((error) => setError(error.message));
+          .catch((error) => {
+            setError(error.message);
+          });
       })
 
       .catch((error) => {
         setError(error.message);
       });
+
     reset();
   };
-
-  let contnet;
-  if (loading) {
-    contnet = <Loading />;
-  }
-
   return (
     <div className="doctorApponment  h-[800px] flex flex-col items-center">
       <div className="   w-96 container m-auto">
@@ -171,13 +181,14 @@ const RegisterAccount = () => {
               </Link>
             </label>
           </div>
-          {contnet}
+
           <button
             type="submit"
             className="btn btn-primary  w-full  bg-gradient-to-r from-primary to-secondary text-white py-2 px-4 rounded-lg hover:bg-indigo-600"
           >
             Regester
           </button>
+          {content}
         </form>
       </div>
     </div>

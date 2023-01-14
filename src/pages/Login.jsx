@@ -1,13 +1,12 @@
 import React, { useContext } from 'react';
 import { useState } from 'react';
 import { useForm } from 'react-hook-form';
-import { Link } from 'react-router-dom';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { FcGoogle } from 'react-icons/fc';
 import { BiShow, BiHide } from 'react-icons/bi';
 import { AuthContext } from '../context/AuthProvider';
 import Loading from '../components/shared/Loading';
 import { toast } from 'react-hot-toast';
-import images from '../assets/image/bg-blue1.png';
 
 const LoginPage = () => {
   const [error, setError] = useState();
@@ -17,19 +16,22 @@ const LoginPage = () => {
     formState: { errors },
   } = useForm();
 
-  const { singIn, loading, setLoading, user, refresh } =
-    useContext(AuthContext);
+  const { singIn, loading, user } = useContext(AuthContext);
+
+  const navigate = useNavigate();
+  const location = useLocation();
+
+  const from = location.state?.from?.pathname || '/';
 
   const onSubmit = (data) => {
     singIn(data.email, data.password)
       .then((data) => {
-        if (data.operationType === 'signIn') {
-          toast.success(`Welcome ${user?.displayName} `, {
-            duration: 4000,
-            position: 'bottom-right',
-          });
-          setError('');
-        }
+        toast.success(`Welcome ${user?.displayName} `, {
+          duration: 4000,
+          position: 'bottom-top',
+        });
+        setError('');
+        navigate(from, { replace: true });
       })
       .catch((err) => {
         setError(err.message);
@@ -41,21 +43,13 @@ const LoginPage = () => {
     setPasswordVisible(!passwordVisible);
   };
 
-  let contnet;
+  let content;
   if (loading) {
-    contnet = <Loading />;
+    content = <Loading />;
   }
 
-  const bgBanner = {
-    backgroundImage: `url(${images})`,
-    backgroundSize: 'cover',
-  };
-
   return (
-    <div
-      style={bgBanner}
-      className="doctorApponment min-h-screen flex flex-col items-center"
-    >
+    <div className="doctorApponment min-h-screen flex flex-col items-center">
       <div className="   w-96 container m-auto ">
         <h2 className=" text-secondary text-center text-4xl mb-8">
           Login an Account
@@ -115,13 +109,14 @@ const LoginPage = () => {
             </label>
           </div>
           {error && <span className="text-red-500">{error}</span>}
-          {contnet}
+
           <button
             type="submit"
             className="btn btn-primary  w-full  bg-gradient-to-r from-primary to-secondary text-white py-2 px-4 rounded-lg hover:bg-indigo-600"
           >
             Login
           </button>
+          {content}
           <div className="flex flex-col w-full border-opacity-50  ">
             <div className="divider       ">OR</div>
             <div className="grid h-20 card   rounded-box place-items-center">

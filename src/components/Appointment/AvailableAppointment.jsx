@@ -1,17 +1,32 @@
+import { async } from '@firebase/util';
+import { useQuery } from '@tanstack/react-query';
 import { format } from 'date-fns';
 import React, { useEffect, useState } from 'react';
+import CartLoading from '../shared/CartLoading';
+import Loading from '../shared/Loading';
 import AppoinmentFrom from './AppoinmentFrom';
 import AppointmentService from './AppointmentService';
 
 const AvailableAppointment = ({ seletedDate }) => {
-  const [appointmentOptions, setAppointmentOptions] = useState([]);
+  // const [appointmentOptions, setAppointmentOptions] = useState([]);
 
   const [treatments, setTreatments] = useState(null);
-  useEffect(() => {
-    fetch('appointmentOn.json')
-      .then((response) => response.json())
-      .then((data) => setAppointmentOptions(data));
-  }, []);
+
+  const { data: appointmentOptions = [] } = useQuery({
+    queryKey: 'services',
+    queryFn: async () => {
+      const response = await fetch('http://localhost:5000/services');
+      return response.json();
+    },
+  });
+
+  const appointment = appointmentOptions.data;
+
+  // useEffect(() => {
+  //   fetch('http://localhost:5000/services')
+  //     .then((response) => response.json())
+  //     .then((data) => setAppointmentOptions(data.data));
+  // }, []);
 
   return (
     <section className="mt-16">
@@ -23,15 +38,18 @@ const AvailableAppointment = ({ seletedDate }) => {
       </p>
 
       <div className="  justify-items-center grid lg:grid-cols-3 md:grid-cols-2 grid-cols-1 gap-4  ">
-        {appointmentOptions.map((appointment) => (
-          <AppointmentService
-            appointment={appointment}
-            key={appointment._id}
-            seletedDate={seletedDate}
-            setTreatments={setTreatments}
-          />
+        {appointment?.map((appointment) => (
+          <>
+            <AppointmentService
+              appointment={appointment}
+              key={appointment._id}
+              seletedDate={seletedDate}
+              setTreatments={setTreatments}
+            />
+          </>
         ))}
       </div>
+
       {treatments && (
         <AppoinmentFrom
           seletedDate={seletedDate}

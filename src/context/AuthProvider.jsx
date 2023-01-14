@@ -14,7 +14,8 @@ const auth = getAuth(app);
 
 const AuthProvider = ({ children }) => {
   const [user, setUser] = useState(null);
-  const [loading, setLoading] = useState(false);
+
+  const [loading, setLoading] = useState(true);
 
   const refresh = () => {
     return window.location.reload(true);
@@ -40,23 +41,11 @@ const AuthProvider = ({ children }) => {
 
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, (users) => {
-      if (users.uid) {
-        setUser(users);
-        setLoading(false);
-      }
+      setUser(users);
+      setLoading(false);
     });
     return () => unsubscribe();
   }, []);
-
-  const handleFileUpload = async (image) => {
-    const file = image;
-
-    const storageRef = app.storage().ref();
-    const fileRef = storageRef.child(file.image);
-    await fileRef.put(file);
-    const url = await fileRef.getDownloadURL();
-    setImageUrl(url);
-  };
 
   const authInfo = {
     createAccount,
@@ -66,7 +55,6 @@ const AuthProvider = ({ children }) => {
     user,
     loading,
     refresh,
-    setLoading,
   };
 
   return (

@@ -7,6 +7,7 @@ import ErrorPage from '../../pages/ErrorPage';
 import Home from '../../pages/Home';
 import LoginPage from '../../pages/Login';
 import RegisterAccount from '../../pages/RegisterAccount';
+import PrivateRoute from './PrivateRoute';
 
 const routers = createBrowserRouter([
   {
@@ -31,11 +32,19 @@ const routers = createBrowserRouter([
       },
       {
         path: 'dashboard',
-        element: <Dashborad />,
+        element: (
+          <PrivateRoute>
+            <Dashborad />
+          </PrivateRoute>
+        ),
       },
       {
         path: 'appointment',
-        element: <Appointment />,
+        element: (
+          <PrivateRoute>
+            <Appointment />
+          </PrivateRoute>
+        ),
       },
 
       {
