@@ -1,30 +1,55 @@
-import React, { useState } from 'react';
-import Modal from 'react-modal';
+import React, { useContext, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { format } from 'date-fns';
+import { AuthContext } from '../../context/AuthProvider';
+import { toast } from 'react-hot-toast';
 
-const AppoinmentFrom = ({ treatments, seletedDate, setTreatments }) => {
+const AppoinmentFrom = ({
+  treatments,
+  seletedDate,
+  setTreatments,
+  refetch,
+}) => {
   const { name, slots } = treatments;
-  const date = format(seletedDate, 'PP');
+
+  const { user } = useContext(AuthContext); // user info
+
+  const date = format(seletedDate, 'PP'); // date format
   const {
     register,
     handleSubmit,
 
-    formState: { errors },
+    formState: { errors }, // form validation
   } = useForm();
   const onSubmit = (data) => {
-    const form = {
+    const from = {
+      title: name,
+      ...data,
       appoinemntDate: date,
 
-      ...data,
+      name: user.displayName,
+      email: user.email,
     };
-    console.log(form);
-    setTreatments(null);
-  };
+    fetch(`http://localhost:5000/bookings`, {
+      method: 'POST',
+      headers: { 'content-type': 'Application/json' },
+      body: JSON.stringify(from),
+    })
+      .then((response) => response.json())
+      .then((data) => {
+        console.log(data);
+        if (data.acknowledged) {
+          setTreatments(null); // close modal
+          toast.success('Booking successfully ', {
+            position: 'top-left',
+          });
+          refetch();
+        }
+      });
+  }; // modal
 
   return (
     <div>
-      {/* Put this part before </body> tag */}
       <input type="checkbox" id="my-modal-3" className="modal-toggle" />
       <div className="modal">
         <div className="modal-box relative">
@@ -59,8 +84,8 @@ const AppoinmentFrom = ({ treatments, seletedDate, setTreatments }) => {
                 Select Time:
               </label>
               <select
-                name="solts"
-                {...register('solts')}
+                name="slot"
+                {...register('slot')}
                 className="select select-bordered w-full  "
               >
                 {slots.map((slot) => (
@@ -76,7 +101,9 @@ const AppoinmentFrom = ({ treatments, seletedDate, setTreatments }) => {
                 className="border border-gray-400 p-2 w-full"
                 type="text"
                 name="name"
-                {...register('name', { required: true })}
+                value={user.displayName}
+                disabled
+                {...register('name')}
               />
             </div>
             <div className="mb-4">
@@ -87,7 +114,9 @@ const AppoinmentFrom = ({ treatments, seletedDate, setTreatments }) => {
                 className="border border-gray-400 p-2 w-full"
                 type="email"
                 name="email"
-                {...register('email', { required: true })}
+                defaultValue={user.email}
+                disabled
+                {...register('email')}
               />
             </div>
             <div className="mb-4">
@@ -102,7 +131,10 @@ const AppoinmentFrom = ({ treatments, seletedDate, setTreatments }) => {
               />
             </div>
 
-            <button className="btn btn-primary  w-full  bg-gradient-to-r from-primary to-secondary text-white py-2 px-4 rounded-lg hover:bg-indigo-600">
+            <button
+              type="submit"
+              className="btn btn-primary  w-full  bg-gradient-to-r from-primary to-secondary text-white py-2 px-4 rounded-lg hover:bg-indigo-600"
+            >
               Submit
             </button>
           </form>

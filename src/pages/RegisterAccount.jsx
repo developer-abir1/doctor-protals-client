@@ -59,7 +59,7 @@ const RegisterAccount = () => {
                 position: 'bottom-top',
               }
             );
-            navigate(from, { replace });
+            navigate(from, { replace: true });
           })
           .catch((error) => {
             setError(error.message);

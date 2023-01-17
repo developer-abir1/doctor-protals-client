@@ -16,7 +16,7 @@ const LoginPage = () => {
     formState: { errors },
   } = useForm();
 
-  const { singIn, loading, user } = useContext(AuthContext);
+  const { singIn, loading, user, refresh } = useContext(AuthContext);
 
   const navigate = useNavigate();
   const location = useLocation();
@@ -26,12 +26,14 @@ const LoginPage = () => {
   const onSubmit = (data) => {
     singIn(data.email, data.password)
       .then((data) => {
-        toast.success(`Welcome ${user?.displayName} `, {
+        setError('');
+
+        navigate(from, { replace: true });
+
+        toast.success(`Login successfully   `, {
           duration: 4000,
           position: 'bottom-top',
         });
-        setError('');
-        navigate(from, { replace: true });
       })
       .catch((err) => {
         setError(err.message);

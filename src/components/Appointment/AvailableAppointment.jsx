@@ -1,33 +1,34 @@
-import { async } from '@firebase/util';
 import { useQuery } from '@tanstack/react-query';
 import { format } from 'date-fns';
-import React, { useEffect, useState } from 'react';
-import CartLoading from '../shared/CartLoading';
+import React, { useState } from 'react';
 import Loading from '../shared/Loading';
 import AppoinmentFrom from './AppoinmentFrom';
 import AppointmentService from './AppointmentService';
 
 const AvailableAppointment = ({ seletedDate }) => {
-  // const [appointmentOptions, setAppointmentOptions] = useState([]);
-
   const [treatments, setTreatments] = useState(null);
 
-  const { data: appointmentOptions = [] } = useQuery({
-    queryKey: 'services',
+  const date = format(seletedDate, 'PP');
+
+  const {
+    data: appointment = [],
+    refetch,
+    isLoading,
+  } = useQuery({
+    queryKey: ['appoinmetnOn', date],
     queryFn: async () => {
-      const response = await fetch('http://localhost:5000/services');
+      const response = await fetch(
+        `http://localhost:5000/appoinmetnOn?date=${date}`
+      );
       return response.json();
     },
   });
 
-  const appointment = appointmentOptions.data;
+  // const appointment = appointmentOptions.data;
 
-  // useEffect(() => {
-  //   fetch('http://localhost:5000/services')
-  //     .then((response) => response.json())
-  //     .then((data) => setAppointmentOptions(data.data));
-  // }, []);
-
+  if (isLoading) {
+    return <Loading />;
+  }
   return (
     <section className="mt-16">
       <p className=" text-center md:text-3xl mb-16 text-xl   ">
@@ -55,6 +56,7 @@ const AvailableAppointment = ({ seletedDate }) => {
           seletedDate={seletedDate}
           treatments={treatments}
           setTreatments={setTreatments}
+          refetch={refetch}
         />
       )}
     </section>
