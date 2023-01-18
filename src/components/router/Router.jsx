@@ -7,6 +7,7 @@ import ErrorPage from '../../pages/ErrorPage';
 import Home from '../../pages/Home';
 import LoginPage from '../../pages/Login';
 import RegisterAccount from '../../pages/RegisterAccount';
+import MyAppoinment from '../dashboard/appointment/MyAppoinment';
 import PrivateRoute from './PrivateRoute';
 
 const routers = createBrowserRouter([
@@ -34,9 +35,15 @@ const routers = createBrowserRouter([
         path: 'dashboard',
         element: (
           <PrivateRoute>
-            <Dashborad />
+            <Dashborad></Dashborad>
           </PrivateRoute>
         ),
+        children: [
+          {
+            path: 'myappoinment',
+            element: <MyAppoinment />,
+          },
+        ],
       },
       {
         path: 'appointment',

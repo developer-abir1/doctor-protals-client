@@ -30,7 +30,7 @@ const AppoinmentFrom = ({
       name: user.displayName,
       email: user.email,
     };
-    fetch(`http://localhost:5000/bookings`, {
+    fetch(`https://doctor-protal-server.vercel.app/bookings`, {
       method: 'POST',
       headers: { 'content-type': 'Application/json' },
       body: JSON.stringify(from),
@@ -43,7 +43,13 @@ const AppoinmentFrom = ({
           toast.success('Booking successfully ', {
             position: 'top-left',
           });
+
           refetch();
+        } else {
+          setTreatments(null); // close modal
+          toast.error(data.massage, {
+            position: 'top-left',
+          });
         }
       });
   }; // modal
