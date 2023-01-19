@@ -25,12 +25,11 @@ const AppoinmentFrom = ({
     const from = {
       title: name,
       ...data,
-      appoinemntDate: date,
-
+      appointmentDate: date,
       name: user.displayName,
       email: user.email,
     };
-    fetch(`https://doctor-protal-server.vercel.app/bookings`, {
+    fetch(` http://localhost:5000/bookings`, {
       method: 'POST',
       headers: { 'content-type': 'Application/json' },
       body: JSON.stringify(from),

@@ -1,7 +1,6 @@
-import React, { useContext } from 'react';
-import { useState } from 'react';
+import React, { useContext, useState } from 'react';
 import { useForm } from 'react-hook-form';
-import { Link, useLocation, useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { BiShow, BiHide } from 'react-icons/bi';
 import { AuthContext } from '../context/AuthProvider';
 import Loading from '../components/shared/Loading';
@@ -31,9 +30,6 @@ const RegisterAccount = () => {
   //
 
   const navigate = useNavigate();
-  const location = useLocation();
-
-  const from = location.state?.from?.pathname || '/';
 
   const onSubmit = (data) => {
     createAccount(data.email, data.password)
@@ -49,9 +45,7 @@ const RegisterAccount = () => {
 
         updateInfo(userInfo)
           .then((info) => {
-            console.log(info);
-            // toast.success('Account create successfully', { autoClose: 500 });
-
+            handleSavesUser(data.email, data.name);
             toast.success(
               `Congress!  ${user?.displayName} welcome to doctor protal  `,
               {
@@ -59,7 +53,6 @@ const RegisterAccount = () => {
                 position: 'bottom-top',
               }
             );
-            navigate(from, { replace: true });
           })
           .catch((error) => {
             setError(error.message);
@@ -69,9 +62,26 @@ const RegisterAccount = () => {
       .catch((error) => {
         setError(error.message);
       });
+  };
 
+  const handleSavesUser = (email, name) => {
+    const users = {
+      email,
+      name,
+    };
+
+    fetch(`http://localhost:5000/users`, {
+      method: 'POST',
+      headers: { 'content-type': 'Application/json' },
+      body: JSON.stringify(users),
+    })
+      .then((response) => response.json())
+      .then((data) => {
+        navigate('/');
+      });
     reset();
   };
+
   return (
     <div className="doctorApponment  h-[800px] flex flex-col items-center">
       <div className="   w-96 container m-auto">

@@ -7,17 +7,18 @@ import { BiShow, BiHide } from 'react-icons/bi';
 import { AuthContext } from '../context/AuthProvider';
 import Loading from '../components/shared/Loading';
 import { toast } from 'react-hot-toast';
+import useToken from '../hooks/useToken';
 
 const LoginPage = () => {
   const [error, setError] = useState();
+
   const {
     register,
     handleSubmit,
     formState: { errors },
   } = useForm();
 
-  const { singIn, loading, user, refresh } = useContext(AuthContext);
-
+  const { singIn, loading, user, handleGoogleLogin } = useContext(AuthContext);
   const navigate = useNavigate();
   const location = useLocation();
 
@@ -25,24 +26,58 @@ const LoginPage = () => {
 
   const onSubmit = (data) => {
     singIn(data.email, data.password)
-      .then((data) => {
-        setError('');
-
-        navigate(from, { replace: true });
-
-        toast.success(`Login successfully   `, {
+      .then((result) => {
+        toast.success(`Login successfully  ${result.user.displayName}   `, {
           duration: 4000,
           position: 'bottom-top',
         });
+        setError(''); // clear error
       })
       .catch((err) => {
-        setError(err.message);
+        setError(err.message); // set error
       });
   };
   const [passwordVisible, setPasswordVisible] = useState(false);
 
   const handleClick = () => {
-    setPasswordVisible(!passwordVisible);
+    setPasswordVisible(!passwordVisible); // password show and hidden
+  };
+
+  const googleLogin = () => {
+    handleGoogleLogin() // google login
+      .then((result) => {
+        const user = result.user;
+        toast.success(`Login successfully  ${user.displayName} `, {
+          duration: 4000,
+          position: 'bottom-top',
+        });
+
+        handleSavesUser(user.email, user.displayName);
+      })
+      .catch((error) => {
+        setError(error.message);
+      });
+  };
+
+  const handleSavesUser = (email, name) => {
+    // save user in database
+    const users = {
+      email,
+      name,
+    };
+
+    fetch(`http://localhost:5000/users`, {
+      method: 'POST',
+      headers: { 'content-type': 'Application/json' },
+      body: JSON.stringify(users),
+    })
+      .then((response) => response.json())
+      .then((data) => {
+        navigate(from, { replace: true });
+      })
+      .catch((error) => {
+        setError(error.message);
+      });
   };
 
   let content;
@@ -122,7 +157,11 @@ const LoginPage = () => {
           <div className="flex flex-col w-full border-opacity-50  ">
             <div className="divider       ">OR</div>
             <div className="grid h-20 card   rounded-box place-items-center">
-              <button className="btn   w-full" type="button">
+              <button
+                className="btn   w-full"
+                type="button"
+                onClick={googleLogin}
+              >
                 <FcGoogle size={40} className="mr-12" /> CONTINUE WITH GOOGLE
               </button>
             </div>

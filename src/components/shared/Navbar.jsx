@@ -1,9 +1,9 @@
-import React, { useContext, useEffect } from 'react';
+import React, { useContext } from 'react';
 import { Link, useLocation } from 'react-router-dom';
-// import { toast } from 'react-toastify';
 import { AuthContext } from '../../context/AuthProvider';
-import Loading from './Loading';
 import { FaUserCircle } from 'react-icons/fa';
+import { AiOutlineMenu } from 'react-icons/ai';
+
 const Navbar = () => {
   const activeStyle = 'btn  btn-accent text-white bg-accent';
 
@@ -13,7 +13,9 @@ const Navbar = () => {
 
   const handleLogout = () => {
     logOut()
-      .then(() => {})
+      .then(() => {
+        localStorage.removeItem('accessToken');
+      })
       .catch((err) => console.log(err));
   };
 
@@ -114,20 +116,12 @@ const Navbar = () => {
       )}
     </>
   );
+
   return (
     <div className="   ">
       <div className="navbar bg-base-100     container m-auto  ">
-        <div className="navbar-start">
-          <Link to={'/'} className="btn btn-ghost normal-case text-xl">
-            Doctor Protals
-          </Link>
-        </div>
-
-        <div className="navbar-end hidden lg:flex  ">
-          <ul className="menu menu-horizontal px-1">{linkItems}</ul>
-        </div>
-        <div className="navbar-end lg:hidden  ">
-          <div className="dropdown dropdown-end">
+        <div className="navbar-start  lg:hidden    ">
+          <div className="dropdown  dropdown-bottom">
             <label tabIndex={0} className="btn btn-ghost btn-circle">
               <svg
                 xmlns="http://www.w3.org/2000/svg"
@@ -151,6 +145,24 @@ const Navbar = () => {
               {linkItems}
             </ul>
           </div>
+        </div>
+        <div className="navbar-start">
+          <Link to={'/'} className="btn btn-ghost normal-case text-xl">
+            Doctor Protals
+          </Link>
+        </div>
+
+        <div className="navbar-end hidden lg:flex  ">
+          <ul className="menu menu-horizontal px-1">{linkItems}</ul>
+        </div>
+
+        <div className="navbar-end  lg:hidden    ">
+          <label
+            htmlFor="dashboard-drawer"
+            className="btn btn-ghost text-secondary drawer-button lg:hidden"
+          >
+            <AiOutlineMenu size={30} />
+          </label>
         </div>
       </div>
     </div>

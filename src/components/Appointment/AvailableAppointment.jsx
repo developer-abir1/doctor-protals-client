@@ -11,20 +11,21 @@ const AvailableAppointment = ({ seletedDate }) => {
   const date = format(seletedDate, 'PP');
 
   const {
-    data: appointment = [],
+    data: appointment,
     refetch,
     isLoading,
   } = useQuery({
     queryKey: ['appoinmetnOn', date],
     queryFn: async () => {
       const response = await fetch(
-        `https://doctor-protal-server.vercel.app/appoinmetnOn?date=${date}`
+        `http://localhost:5000/appoinmetnOn?date=${date}`
       );
       return response.json();
     },
   });
 
   // const appointment = appointmentOptions.data;
+  console.log(appointment);
 
   if (isLoading) {
     return <Loading />;
@@ -33,9 +34,7 @@ const AvailableAppointment = ({ seletedDate }) => {
     <section className="mt-16">
       <p className=" text-center md:text-3xl mb-16 text-xl   ">
         Available Services on{' '}
-        <span className="text-secondary font-bold">
-          {format(seletedDate, 'PP')}
-        </span>
+        <span className="text-secondary font-bold">{date}</span>
       </p>
 
       <div className="  justify-items-center grid lg:grid-cols-3 md:grid-cols-2 grid-cols-1 gap-4  ">

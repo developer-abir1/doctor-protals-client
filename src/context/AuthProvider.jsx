@@ -6,6 +6,8 @@ import {
   signInWithEmailAndPassword,
   signOut,
   updateProfile,
+  GoogleAuthProvider,
+  signInWithPopup,
 } from 'firebase/auth';
 import app from '../firebase.config';
 import 'firebase/storage';
@@ -16,6 +18,7 @@ const AuthProvider = ({ children }) => {
   const [user, setUser] = useState(null);
 
   const [loading, setLoading] = useState(true);
+  const provider = new GoogleAuthProvider();
 
   const refresh = () => {
     return window.location.reload(true);
@@ -39,6 +42,11 @@ const AuthProvider = ({ children }) => {
     return signOut(auth);
   };
 
+  const handleGoogleLogin = () => {
+    setLoading(true);
+    return signInWithPopup(auth, provider);
+  };
+
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, (users) => {
       setUser(users);
@@ -52,6 +60,7 @@ const AuthProvider = ({ children }) => {
     singIn,
     logOut,
     updateInfo,
+    handleGoogleLogin,
     user,
     loading,
     refresh,

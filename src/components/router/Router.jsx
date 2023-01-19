@@ -1,13 +1,16 @@
 import { createBrowserRouter } from 'react-router-dom';
+import DashboardLayout from '../../layout/DashboardLayout';
 import Layout from '../../layout/Layout';
 import About from '../../pages/About';
 import Appointment from '../../pages/Appointment';
-import Dashborad from '../../pages/Dashborad';
 import ErrorPage from '../../pages/ErrorPage';
 import Home from '../../pages/Home';
 import LoginPage from '../../pages/Login';
 import RegisterAccount from '../../pages/RegisterAccount';
+import AllBookings from '../dashboard/AllBookings';
+import AllUser from '../dashboard/AllUser';
 import MyAppoinment from '../dashboard/appointment/MyAppoinment';
+import Dashboard from '../dashboard/Dashboard';
 import PrivateRoute from './PrivateRoute';
 
 const routers = createBrowserRouter([
@@ -31,20 +34,7 @@ const routers = createBrowserRouter([
         path: 'register',
         element: <RegisterAccount />,
       },
-      {
-        path: 'dashboard',
-        element: (
-          <PrivateRoute>
-            <Dashborad></Dashborad>
-          </PrivateRoute>
-        ),
-        children: [
-          {
-            path: 'myappoinment',
-            element: <MyAppoinment />,
-          },
-        ],
-      },
+
       {
         path: 'appointment',
         element: (
@@ -57,6 +47,32 @@ const routers = createBrowserRouter([
       {
         path: '*',
         element: <ErrorPage />,
+      },
+    ],
+  },
+  {
+    path: '/dashboard',
+    element: (
+      <PrivateRoute>
+        <DashboardLayout></DashboardLayout>
+      </PrivateRoute>
+    ),
+    children: [
+      {
+        path: '/dashboard',
+        element: <Dashboard />,
+      },
+      {
+        path: 'myappoinment',
+        element: <MyAppoinment />,
+      },
+      {
+        path: 'alluser',
+        element: <AllUser />,
+      },
+      {
+        path: 'allbookings',
+        element: <AllBookings />,
       },
     ],
   },
