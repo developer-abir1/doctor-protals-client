@@ -30,6 +30,7 @@ const LoginPage = () => {
   const from = location.state?.from?.pathname || '/'; // redirect after login
 
   const [token] = useToken(userLoginToken); // get token from server
+  console.log('backebnd', token);
   if (token) {
     navigate(from, { replace: true });
   }
@@ -75,7 +76,10 @@ const LoginPage = () => {
 
     fetch(`https://doctor-protal-server.vercel.app/users`, {
       method: 'POST',
-      headers: { 'content-type': 'Application/json' },
+      headers: {
+        'content-type': 'Application/json',
+        authorization: `Bearer ${localStorage.getItem('accessToken')}`,
+      },
       body: JSON.stringify(users),
     })
       .then((response) => response.json())

@@ -12,8 +12,6 @@ const useAdmin = (email) => {
     })
       .then((res) => res.json())
       .then((data) => {
-        console.log('a bad admin ki paico?', data);
-
         setIsAdmin(data.isAdmin);
         setIsAdminLoading(false);
       });

@@ -104,7 +104,11 @@ const RegisterAccount = () => {
 
     fetch(`https://doctor-protal-server.vercel.app/users`, {
       method: 'POST',
-      headers: { 'content-type': 'Application/json' },
+      headers: {
+        'content-type': 'Application/json',
+
+        authorization: `Bearer ${localStorage.getItem('accessToken')}`,
+      },
       body: JSON.stringify(users),
     })
       .then((response) => response.json())

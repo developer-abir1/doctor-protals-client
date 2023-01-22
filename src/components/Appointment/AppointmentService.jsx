@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 
 const AppointmentService = ({ appointment, setTreatments }) => {
-  const { name, slots } = appointment;
+  const { name, slots, price } = appointment;
 
   return (
     <>
@@ -15,6 +15,7 @@ const AppointmentService = ({ appointment, setTreatments }) => {
           <p className={`${slots.length === 0 ? 'text-red-500' : ''}`}>
             {slots.length} {slots.length > 1 ? 'SPACES ' : 'SPACE '} AVAILABLE
           </p>
+          <h2 className="    ml-4">Price: $ {price}</h2>
           <div className="card-actions justify-end">
             <label
               htmlFor="my-modal-3"

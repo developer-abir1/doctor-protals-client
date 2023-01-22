@@ -10,7 +10,7 @@ const AppoinmentFrom = ({
   setTreatments,
   refetch,
 }) => {
-  const { name, slots } = treatments;
+  const { name, slots, price } = treatments;
 
   const { user } = useContext(AuthContext); // user info
 
@@ -28,6 +28,7 @@ const AppoinmentFrom = ({
       appointmentDate: date,
       name: user.displayName,
       email: user.email,
+      price: price,
     };
     fetch(` https://doctor-protal-server.vercel.app/bookings`, {
       method: 'POST',
