@@ -6,7 +6,14 @@ const AllBookings = () => {
   const { data: allusersBookings, isLoading } = useQuery({
     queryKey: ['admin'],
     queryFn: async () => {
-      const response = await fetch(' http://localhost:5000/booking/admin');
+      const response = await fetch(
+        ' https://doctor-protal-server.vercel.app/booking/admin',
+        {
+          headers: {
+            authorization: `Bearer ${localStorage.getItem('accessToken')}`,
+          },
+        }
+      );
       return response.json();
     },
   });

@@ -7,10 +7,13 @@ import ErrorPage from '../../pages/ErrorPage';
 import Home from '../../pages/Home';
 import LoginPage from '../../pages/Login';
 import RegisterAccount from '../../pages/RegisterAccount';
+import AddDoctor from '../dashboard/AddDoctor';
 import AllBookings from '../dashboard/AllBookings';
 import AllUser from '../dashboard/AllUser';
 import MyAppoinment from '../dashboard/appointment/MyAppoinment';
 import Dashboard from '../dashboard/Dashboard';
+import ManageDoctors from '../dashboard/ManageDoctors';
+import AdminRouter from './AdminRoute';
 import PrivateRoute from './PrivateRoute';
 
 const routers = createBrowserRouter([
@@ -63,16 +66,40 @@ const routers = createBrowserRouter([
         element: <Dashboard />,
       },
       {
-        path: 'myappoinment',
+        path: 'my-appoinment',
         element: <MyAppoinment />,
       },
       {
-        path: 'alluser',
-        element: <AllUser />,
+        path: 'all-user',
+        element: (
+          <AdminRouter>
+            <AllUser />
+          </AdminRouter>
+        ),
       },
       {
-        path: 'allbookings',
-        element: <AllBookings />,
+        path: 'all-bookings',
+        element: (
+          <AdminRouter>
+            <AllBookings />
+          </AdminRouter>
+        ),
+      },
+      {
+        path: 'add-doctors',
+        element: (
+          <AdminRouter>
+            <AddDoctor />
+          </AdminRouter>
+        ),
+      },
+      {
+        path: 'manage-doctors',
+        element: (
+          <AdminRouter>
+            <ManageDoctors />
+          </AdminRouter>
+        ),
       },
     ],
   },

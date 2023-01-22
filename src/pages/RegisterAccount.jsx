@@ -5,13 +5,26 @@ import { BiShow, BiHide } from 'react-icons/bi';
 import { AuthContext } from '../context/AuthProvider';
 import Loading from '../components/shared/Loading';
 import { toast } from 'react-hot-toast';
+import { FcGoogle } from 'react-icons/fc';
+import useToken from '../hooks/useToken';
 
 const RegisterAccount = () => {
-  const { createAccount, loading, user, updateInfo, refresh } =
-    useContext(AuthContext);
-  // password show and hidden
-  const [passwordVisible, setPasswordVisible] = useState(false);
   const [error, setError] = useState('');
+  const [passwordVisible, setPasswordVisible] = useState(false);
+  const [createUserEmailToken, setCreateUserEmailToken] = useState('');
+
+  const {
+    createAccount,
+    loading,
+    user,
+    updateInfo,
+    refresh,
+    handleGoogleLogin,
+  } = useContext(AuthContext);
+  // password show and hidden
+
+  const [token] = useToken(createUserEmailToken);
+
   const handleClick = () => {
     setPasswordVisible(!passwordVisible);
   }; // password show and hidden
@@ -30,6 +43,10 @@ const RegisterAccount = () => {
   //
 
   const navigate = useNavigate();
+  if (token) {
+    navigate('/');
+    reset();
+  }
 
   const onSubmit = (data) => {
     createAccount(data.email, data.password)
@@ -64,22 +81,36 @@ const RegisterAccount = () => {
       });
   };
 
+  const googleLogin = () => {
+    handleGoogleLogin() // google login
+      .then((result) => {
+        const user = result.user;
+        toast.success(`Login successfully  ${user.displayName} `, {
+          duration: 4000,
+          position: 'bottom-top',
+        });
+
+        handleSavesUser(user.email, user.displayName);
+      })
+      .catch((error) => {
+        setError(error.message);
+      });
+  };
   const handleSavesUser = (email, name) => {
     const users = {
       email,
       name,
     };
 
-    fetch(`http://localhost:5000/users`, {
+    fetch(`https://doctor-protal-server.vercel.app/users`, {
       method: 'POST',
       headers: { 'content-type': 'Application/json' },
       body: JSON.stringify(users),
     })
       .then((response) => response.json())
       .then((data) => {
-        navigate('/');
+        setCreateUserEmailToken(email);
       });
-    reset();
   };
 
   return (
@@ -199,6 +230,19 @@ const RegisterAccount = () => {
             Regester
           </button>
           {content}
+
+          <div className="flex flex-col w-full border-opacity-50  ">
+            <div className="divider       ">OR</div>
+            <div className="grid h-20 card   rounded-box place-items-center">
+              <button
+                className="btn   w-full"
+                type="button"
+                onClick={googleLogin}
+              >
+                <FcGoogle size={40} className="mr-12" /> CONTINUE WITH GOOGLE
+              </button>
+            </div>
+          </div>
         </form>
       </div>
     </div>

@@ -1,13 +1,19 @@
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 
 const useAdmin = (email) => {
   const [isAdmin, setIsAdmin] = useState('');
+  console.log('vai toi koui', isAdmin);
   const [isAdminLoading, setIsAdminLoading] = useState(true);
   useEffect(() => {
-    fetch(` http://localhost:5000/users/admin/${email}`)
+    fetch(` https://doctor-protal-server.vercel.app/users/admin/${email}`, {
+      headers: {
+        authorization: `Bearer ${localStorage.getItem('accessToken')}`,
+      },
+    })
       .then((res) => res.json())
       .then((data) => {
-        console.log(data);
+        console.log('a bad admin ki paico?', data);
+
         setIsAdmin(data.isAdmin);
         setIsAdminLoading(false);
       });

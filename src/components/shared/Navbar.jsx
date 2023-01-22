@@ -29,16 +29,6 @@ const Navbar = () => {
           Home
         </Link>
       </li>
-      <li>
-        <Link
-          to={'/about'}
-          className={`ml-2 ${
-            pathname.pathname === '/about' ? activeStyle : ''
-          }`}
-        >
-          About
-        </Link>
-      </li>
 
       <li>
         <Link
@@ -120,8 +110,17 @@ const Navbar = () => {
   return (
     <div className="   ">
       <div className="navbar bg-base-100     container m-auto  ">
-        <div className="navbar-start  lg:hidden    ">
-          <div className="dropdown  dropdown-bottom">
+        <div className="navbar-start">
+          <Link to={'/'} className="btn btn-ghost normal-case text-xl">
+            Doctor Protals
+          </Link>
+        </div>
+
+        <div className="navbar-end hidden lg:flex  ">
+          <ul className="menu menu-horizontal px-1">{linkItems}</ul>
+        </div>
+        <div className="navbar-end  lg:hidden    ">
+          <div className="dropdown  dropdown-end">
             <label tabIndex={0} className="btn btn-ghost btn-circle">
               <svg
                 xmlns="http://www.w3.org/2000/svg"
@@ -145,24 +144,6 @@ const Navbar = () => {
               {linkItems}
             </ul>
           </div>
-        </div>
-        <div className="navbar-start">
-          <Link to={'/'} className="btn btn-ghost normal-case text-xl">
-            Doctor Protals
-          </Link>
-        </div>
-
-        <div className="navbar-end hidden lg:flex  ">
-          <ul className="menu menu-horizontal px-1">{linkItems}</ul>
-        </div>
-
-        <div className="navbar-end  lg:hidden    ">
-          <label
-            htmlFor="dashboard-drawer"
-            className="btn btn-ghost text-secondary drawer-button lg:hidden"
-          >
-            <AiOutlineMenu size={30} />
-          </label>
         </div>
       </div>
     </div>

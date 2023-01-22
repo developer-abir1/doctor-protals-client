@@ -15,6 +15,7 @@
     "chart.js": "^4.2.0",
     "daisyui": "^2.46.1",
     "date-fns": "^2.29.3",
+    "dotenv": "^16.0.3",
     "firebase": "^9.15.0",
     "firebase-admin": "^11.4.1",
     "react": "^18.2.0",

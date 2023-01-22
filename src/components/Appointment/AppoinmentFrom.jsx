@@ -29,9 +29,13 @@ const AppoinmentFrom = ({
       name: user.displayName,
       email: user.email,
     };
-    fetch(` http://localhost:5000/bookings`, {
+    fetch(` https://doctor-protal-server.vercel.app/bookings`, {
       method: 'POST',
-      headers: { 'content-type': 'Application/json' },
+      headers: {
+        'content-type': 'Application/json',
+
+        authorization: `Bearer ${localStorage.getItem('accessToken')}`,
+      },
       body: JSON.stringify(from),
     })
       .then((response) => response.json())

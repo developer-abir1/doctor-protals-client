@@ -11,7 +11,7 @@ const MyAppoinment = () => {
     queryKey: ['booking', user?.email],
     queryFn: async () => {
       const response = await fetch(
-        ` http://localhost:5000/bookings?email=${user?.email}`,
+        ` https://doctor-protal-server.vercel.app/bookings?email=${user?.email}`,
         {
           headers: {
             authorization: `Bearer ${localStorage.getItem('accessToken')}`,
@@ -23,7 +23,6 @@ const MyAppoinment = () => {
   });
 
   const myBookings = myAppoinments?.data;
-  console.log(myBookings);
 
   if (isLoading) {
     return <Loading />;

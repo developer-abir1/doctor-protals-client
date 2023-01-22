@@ -11,18 +11,28 @@ import useToken from '../hooks/useToken';
 
 const LoginPage = () => {
   const [error, setError] = useState();
-
+  const [userLoginToken, setUserLoginToken] = useState(''); // get token from server
+  const { singIn, loading, user, handleGoogleLogin } = useContext(AuthContext); // google login
   const {
     register,
     handleSubmit,
     formState: { errors },
-  } = useForm();
+  } = useForm(); // react hook form
+  const [passwordVisible, setPasswordVisible] = useState(false);
 
-  const { singIn, loading, user, handleGoogleLogin } = useContext(AuthContext);
+  const handleClick = () => {
+    setPasswordVisible(!passwordVisible); // password show and hidden
+  };
+
   const navigate = useNavigate();
   const location = useLocation();
 
-  const from = location.state?.from?.pathname || '/';
+  const from = location.state?.from?.pathname || '/'; // redirect after login
+
+  const [token] = useToken(userLoginToken); // get token from server
+  if (token) {
+    navigate(from, { replace: true });
+  }
 
   const onSubmit = (data) => {
     singIn(data.email, data.password)
@@ -31,16 +41,13 @@ const LoginPage = () => {
           duration: 4000,
           position: 'bottom-top',
         });
+
+        setUserLoginToken(result.user.email);
         setError(''); // clear error
       })
       .catch((err) => {
         setError(err.message); // set error
       });
-  };
-  const [passwordVisible, setPasswordVisible] = useState(false);
-
-  const handleClick = () => {
-    setPasswordVisible(!passwordVisible); // password show and hidden
   };
 
   const googleLogin = () => {
@@ -66,14 +73,14 @@ const LoginPage = () => {
       name,
     };
 
-    fetch(`http://localhost:5000/users`, {
+    fetch(`https://doctor-protal-server.vercel.app/users`, {
       method: 'POST',
       headers: { 'content-type': 'Application/json' },
       body: JSON.stringify(users),
     })
       .then((response) => response.json())
       .then((data) => {
-        navigate(from, { replace: true });
+        setUserLoginToken(email);
       })
       .catch((error) => {
         setError(error.message);
