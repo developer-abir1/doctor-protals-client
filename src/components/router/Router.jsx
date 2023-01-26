@@ -8,11 +8,12 @@ import Home from '../../pages/Home';
 import LoginPage from '../../pages/Login';
 import RegisterAccount from '../../pages/RegisterAccount';
 import AddDoctor from '../dashboard/AddDoctor';
-import AllBookings from '../dashboard/AllBookings';
 import AllUser from '../dashboard/AllUser';
 import MyAppoinment from '../dashboard/appointment/MyAppoinment';
 import Dashboard from '../dashboard/Dashboard';
 import ManageDoctors from '../dashboard/ManageDoctors';
+import Payment from '../dashboard/Payment';
+import DisplayError from '../shared/DisplayError';
 import AdminRouter from './AdminRoute';
 import PrivateRoute from './PrivateRoute';
 
@@ -20,6 +21,7 @@ const routers = createBrowserRouter([
   {
     path: '/',
     element: <Layout />,
+    errorElement: <DisplayError />,
     children: [
       {
         path: '/',
@@ -60,13 +62,18 @@ const routers = createBrowserRouter([
         <DashboardLayout></DashboardLayout>
       </PrivateRoute>
     ),
+    errorElement: <DisplayError />,
     children: [
       {
-        path: '/dashboard',
-        element: <Dashboard />,
+        path: 'main',
+        element: (
+          <AdminRouter>
+            <Dashboard />
+          </AdminRouter>
+        ),
       },
       {
-        path: 'my-appoinment',
+        path: '/dashboard',
         element: <MyAppoinment />,
       },
       {
@@ -77,14 +84,7 @@ const routers = createBrowserRouter([
           </AdminRouter>
         ),
       },
-      {
-        path: 'all-bookings',
-        element: (
-          <AdminRouter>
-            <AllBookings />
-          </AdminRouter>
-        ),
-      },
+
       {
         path: 'add-doctors',
         element: (
@@ -100,6 +100,16 @@ const routers = createBrowserRouter([
             <ManageDoctors />
           </AdminRouter>
         ),
+      },
+      {
+        path: '/dashboard/payment/:id',
+        element: (
+          <PrivateRoute>
+            <Payment />
+          </PrivateRoute>
+        ),
+        loader: ({ params }) =>
+          fetch(` https://server-six-weld.vercel.app/bookings/${params.id}`),
       },
     ],
   },

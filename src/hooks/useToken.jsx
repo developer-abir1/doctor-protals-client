@@ -4,11 +4,11 @@ const useToken = (email) => {
   const [token, setToken] = useState('');
   useEffect(() => {
     if (email) {
-      fetch(`  https://doctor-protal-server.vercel.app/jwt?email=${email}`)
+      fetch(`https://server-six-weld.vercel.app/jwt?email=${email}`)
         .then((res) => res.json())
         .then((data) => {
           if (data.accessToken) {
-            console.log('access token', data.accessToken);
+            console.log('token use token side call', data.accessToken);
             localStorage.setItem('accessToken', data.accessToken);
             setToken(data.accessToken);
           }

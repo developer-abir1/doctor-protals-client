@@ -15,10 +15,10 @@ const AddDoctor = () => {
   const navigte = useNavigate();
 
   const { data: service = [] } = useQuery({
-    queryKey: ['appoinmetnOn'],
+    queryKey: ['appointmentOn'],
     queryFn: async () => {
       const response = await fetch(
-        'https://doctor-protal-server.vercel.app/appoinmetnOn'
+        ' https://server-six-weld.vercel.app/appointmentOn'
       );
       return response.json();
     },
@@ -48,7 +48,7 @@ const AddDoctor = () => {
           img: result.data.url,
         };
         if (result.success) {
-          fetch('https://doctor-protal-server.vercel.app/doctors', {
+          fetch(' https://server-six-weld.vercel.app/doctors', {
             method: 'POST',
             headers: {
               'Content-Type': 'application/json',
@@ -89,7 +89,7 @@ const AddDoctor = () => {
             type="text"
             name="name"
             placeholder="Enter your name"
-            {...register('name')}
+            {...register('name', { required: true })}
           />
         </div>
 
@@ -100,7 +100,7 @@ const AddDoctor = () => {
             type="email"
             name="email"
             placeholder="Enter your email"
-            {...register('email')}
+            {...register('email', { required: true })}
           />
         </div>
 
@@ -110,7 +110,7 @@ const AddDoctor = () => {
           </label>
           <select
             className="select select-bordered w-full max-w-md"
-            {...register('specialty')}
+            {...register('specialty', { required: true })}
           >
             {name.map((item) => (
               <option value={item}>{item}</option>
@@ -130,7 +130,7 @@ const AddDoctor = () => {
             type="file"
             name="image"
             htmlFor="images"
-            {...register('image')}
+            {...register('image', { required: true })}
             className="  absolute h-24 top-0 opacity-0 z-10 w-full max-w-md file-input-primary file-input file-input-md"
           />
         </div>

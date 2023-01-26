@@ -1,6 +1,7 @@
 import React, { useContext } from 'react';
 import { Link, Outlet, useLocation } from 'react-router-dom';
 import Footer from '../components/shared/Footer';
+import Loading from '../components/shared/Loading';
 import NavAdmin from '../components/shared/NavAdmin';
 import { AuthContext } from '../context/AuthProvider';
 import useAdmin from '../hooks/useAdmin';
@@ -26,13 +27,15 @@ const DashboardLayout = () => {
         </div>
         <div className="drawer-side">
           <label htmlFor="dashboard-drawer" className="drawer-overlay"></label>
-          <ul className="menu p-4 w-80    text-base-content">
+          <ul className="menu p-4 w-80       ">
             {/* <!-- Sidebar content here --> */}
+            {isAdmin && (
+              <li>
+                <Link to="main">Dashbord</Link>
+              </li>
+            )}
             <li>
-              <Link to="/dashboard">Dashbord</Link>
-            </li>
-            <li>
-              <Link to="my-appoinment">MY Booking</Link>
+              <Link to="/dashboard">MY Booking</Link>
             </li>
 
             {isAdmin && (
@@ -40,12 +43,7 @@ const DashboardLayout = () => {
                 <li>
                   <Link to="all-user">All User info</Link>
                 </li>
-                <li>
-                  <Link to="all-bookings">All User Bookings</Link>
-                </li>
-                <li>
-                  <Link to="manage-admin">Manage Admin</Link>
-                </li>
+
                 <li>
                   <Link to="add-doctors">Add Doctors</Link>
                 </li>

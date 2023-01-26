@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Pie } from 'react-chartjs-2';
 import { Chart as ChartJS, ArcElement, Tooltip, Legend } from 'chart.js';
 import Loading from '../shared/Loading';
@@ -10,7 +10,7 @@ const Dashboard = () => {
     queryKey: ['users'],
     queryFn: async () => {
       const response = await fetch(
-        ' https://doctor-protal-server.vercel.app/users ',
+        '  https://server-six-weld.vercel.app/users ',
         {
           headers: {
             authorization: `Bearer ${localStorage.getItem('accessToken')}`,
@@ -20,11 +20,28 @@ const Dashboard = () => {
       return response.json();
     },
   });
-  const { data: booking = [] } = useQuery({
+  const { data: booking, isLoading: bookingLoading } = useQuery({
     queryKey: ['admin'],
     queryFn: async () => {
       const response = await fetch(
-        ' https://doctor-protal-server.vercel.app/booking/admin',
+        '  https://server-six-weld.vercel.app/booking/admin',
+        {
+          headers: {
+            authorization: `Bearer ${localStorage.getItem('accessToken')}`,
+          },
+        }
+      );
+      return response.json();
+    },
+  });
+  const user = users?.length;
+  const booked = booking?.length;
+
+  const { data: payment = [], isLoading: paymentLogding } = useQuery({
+    queryKey: ['payment'],
+    queryFn: async () => {
+      const response = await fetch(
+        'https://server-six-weld.vercel.app/payment',
         {
           headers: {
             authorization: `Bearer ${localStorage.getItem('accessToken')}`,
@@ -35,8 +52,6 @@ const Dashboard = () => {
     },
   });
 
-  const user = users?.length;
-  const booked = booking?.length;
   const data = {
     labels: ['Total Users', 'Total Appointments'],
     datasets: [
@@ -50,11 +65,49 @@ const Dashboard = () => {
     ],
   };
 
-  if (isLoading) {
+  const total = payment?.reduce((acc, curr) => {
+    return acc + curr.price;
+  }, 0);
+
+  if (isLoading || bookingLoading || paymentLogding) {
     return <Loading />;
   }
   return (
     <div>
+      <div className="  grid  grid-cols-4 gap-8 px-4 py-4">
+        <div className="h-24  bg-green-500 rounded-md">
+          <h2 className="text-center mt-2 text-2xl font-bold text-white ">
+            User
+          </h2>
+          <h2 className="text-center mt-2 text-2xl font-bold text-white ">
+            {users?.length}
+          </h2>
+        </div>
+        <div className="h-24  bg-red-500 rounded-md">
+          <h2 className="text-center mt-2 text-2xl font-bold text-white ">
+            Appointments
+          </h2>
+          <h2 className="text-center mt-2 text-2xl font-bold text-white ">
+            {booking?.length}
+          </h2>
+        </div>
+        <div className="h-24  bg-blue-500 rounded-md">
+          <h2 className="text-center mt-2 text-2xl font-bold text-white ">
+            Total Earn
+          </h2>
+          <h2 className="text-center mt-2 text-2xl font-bold text-white ">
+            $ {total}
+          </h2>
+        </div>
+        <div className="h-24  bg-yellow-500 rounded-md">
+          <h2 className="text-center mt-2 text-2xl font-bold text-white ">
+            Paid Appoinment
+          </h2>
+          <h2 className="text-center mt-2 text-2xl font-bold text-white ">
+            {payment.length}
+          </h2>
+        </div>
+      </div>
       <div className="flex justify-between h-[400px]">
         <div>
           <Pie data={data} />

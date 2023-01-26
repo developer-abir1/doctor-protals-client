@@ -15,7 +15,7 @@ const ManageDoctors = () => {
     queryKey: ['doctors'],
     queryFn: async () => {
       const response = await fetch(
-        'https://doctor-protal-server.vercel.app/doctors ',
+        ' https://server-six-weld.vercel.app/doctors ',
         {
           headers: {
             authorization: `Bearer ${localStorage.getItem('accessToken')}`,
@@ -33,7 +33,7 @@ const ManageDoctors = () => {
   const hendleDeleteAdmin = async (doctor) => {
     const id = doctor._id;
 
-    fetch(`https://doctor-protal-server.vercel.app/doctors/${id}`, {
+    fetch(` https://server-six-weld.vercel.app/doctors/${id}`, {
       method: 'DELETE',
       headers: {
         authorization: `Bearer ${localStorage.getItem('accessToken')}`,

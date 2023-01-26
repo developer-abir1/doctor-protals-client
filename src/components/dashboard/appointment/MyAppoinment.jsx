@@ -4,14 +4,19 @@ import { AuthContext } from '../../../context/AuthProvider';
 import Loading from '../../shared/Loading';
 import { RxUpdate } from 'react-icons/rx';
 import { AiFillDelete } from 'react-icons/ai';
+import { Link } from 'react-router-dom';
 const MyAppoinment = () => {
   const { user } = useContext(AuthContext);
 
-  const { data: myAppoinments = [], isLoading } = useQuery({
+  const {
+    data: myAppoinments = [],
+    isLoading,
+    refetch,
+  } = useQuery({
     queryKey: ['booking', user?.email],
     queryFn: async () => {
       const response = await fetch(
-        ` https://doctor-protal-server.vercel.app/bookings?email=${user?.email}`,
+        `  https://server-six-weld.vercel.app/bookings?email=${user?.email}`,
         {
           headers: {
             authorization: `Bearer ${localStorage.getItem('accessToken')}`,
@@ -23,7 +28,7 @@ const MyAppoinment = () => {
   });
 
   const myBookings = myAppoinments?.data;
-
+  refetch();
   if (isLoading) {
     return <Loading />;
   }
@@ -46,7 +51,7 @@ const MyAppoinment = () => {
       </div>
 
       <div>
-        <div className="overflow-x-auto px-4">
+        <div className="overflow-x-auto px-4 py-4">
           <table className="table w-full">
             {/* <!-- head --> */}
             <thead>
@@ -56,9 +61,9 @@ const MyAppoinment = () => {
                 <th>Servics</th>
                 <th>Times</th>
                 <th>Date</th>
-                <th>Status</th>
-                <th>Update</th>
-                <th>Delete</th>
+                <th>Price</th>
+
+                <th>Payment</th>
               </tr>
             </thead>
             <tbody>
@@ -69,27 +74,20 @@ const MyAppoinment = () => {
                   <td>{appoint.name}</td>
                   <td>{appoint.title}</td>
                   <td>{appoint.slot}</td>
-                  <td>{appoint.appoinemntDate}</td>
-                  <td
-                    className={`${
-                      myAppoinments.status === 'pandding'
-                        ? 'text-red-500 '
-                        : 'text-green-500'
-                    } `}
-                  >
-                    {myAppoinments.status}
-                  </td>
+                  <td>{appoint.appointmentDate}</td>
+                  <td>${appoint.price}</td>
+
                   <td>
-                    <RxUpdate
-                      size={30}
-                      className=" text-secondary cursor-pointer    "
-                    />
-                  </td>
-                  <td>
-                    <AiFillDelete
-                      size={30}
-                      className=" text-red-500   cursor-pointer"
-                    />
+                    {appoint.price && !appoint.paid && (
+                      <Link to={`/dashboard/payment/${appoint._id}`}>
+                        <button className="btn btn-secondary text-white bg-gradient-to-r from-primary to-secondary w-full">
+                          pay
+                        </button>
+                      </Link>
+                    )}
+                    {appoint.price && appoint.paid && (
+                      <span className="text-green-600 font-bold">Paid</span>
+                    )}
                   </td>
                 </tr>
               ))}

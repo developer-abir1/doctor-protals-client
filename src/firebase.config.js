@@ -1,12 +1,12 @@
 // Import the functions you need from the SDKs you need
 import { initializeApp } from 'firebase/app';
 const firebaseConfig = {
-  apiKey: 'AIzaSyAp8zCFshdevndu0KSEEhhswOkU6TtMYXI',
-  authDomain: 'doctor-protal-auth.firebaseapp.com',
-  projectId: 'doctor-protal-auth',
-  storageBucket: 'doctor-protal-auth.appspot.com',
-  messagingSenderId: '374249225824',
-  appId: '1:374249225824:web:c6a689c5c0261ff95dcd05',
+  apiKey: 'AIzaSyCsoAyipP0afvc6MetIMyBPEfEuC0wv75E',
+  authDomain: 'doctor-portal-client-b1622.firebaseapp.com',
+  projectId: 'doctor-portal-client-b1622',
+  storageBucket: 'doctor-portal-client-b1622.appspot.com',
+  messagingSenderId: '948075199795',
+  appId: '1:948075199795:web:7a0afd92aa0f5ddfa5d246',
 };
 
 // Initialize Firebase

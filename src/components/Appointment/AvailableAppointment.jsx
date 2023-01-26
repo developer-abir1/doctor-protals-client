@@ -15,10 +15,10 @@ const AvailableAppointment = ({ seletedDate }) => {
     refetch,
     isLoading,
   } = useQuery({
-    queryKey: ['appoinmetnOn', date],
+    queryKey: ['appointmentOn', date],
     queryFn: async () => {
       const response = await fetch(
-        `  https://doctor-protal-server.vercel.app/appoinmetnOn?date=${date}`,
+        `https://server-six-weld.vercel.app/appointmentOn?date=${date}`,
         {
           headers: {
             authorization: `Bearer ${localStorage.getItem('accessToken')}`,

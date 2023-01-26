@@ -30,7 +30,7 @@ const AppoinmentFrom = ({
       email: user.email,
       price: price,
     };
-    fetch(` https://doctor-protal-server.vercel.app/bookings`, {
+    fetch(`https://server-six-weld.vercel.app/bookings`, {
       method: 'POST',
       headers: {
         'content-type': 'Application/json',
@@ -41,7 +41,7 @@ const AppoinmentFrom = ({
     })
       .then((response) => response.json())
       .then((data) => {
-        console.log(data);
+        console.log('all data booking', data);
         if (data.acknowledged) {
           setTreatments(null); // close modal
           toast.success('Booking successfully ', {
