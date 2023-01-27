@@ -109,7 +109,7 @@ const routers = createBrowserRouter([
           </PrivateRoute>
         ),
         loader: ({ params }) =>
-          fetch(` https://server-six-weld.vercel.app/bookings/${params.id}`),
+          fetch(`  https://server-pi-rosy.vercel.app/bookings/${params.id}`),
       },
     ],
   },

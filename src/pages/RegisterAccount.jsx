@@ -99,7 +99,7 @@ const RegisterAccount = () => {
       email,
     };
 
-    fetch(`https://server-six-weld.vercel.app/users`, {
+    fetch(` https://server-pi-rosy.vercel.app/users`, {
       method: 'POST',
       headers: {
         'content-type': 'Application/json',
@@ -171,12 +171,6 @@ const RegisterAccount = () => {
                 minLength: {
                   value: 6,
                   message: ' password  must be 6   characters longer',
-                },
-                pattern: {
-                  value:
-                    /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/,
-                  message:
-                    'Password mast be strong ex: 1 Small Letter , 1 Upper Case Latter , 1 symbol , 1 number must have to',
                 },
               })}
             />

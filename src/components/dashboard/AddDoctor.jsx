@@ -18,7 +18,7 @@ const AddDoctor = () => {
     queryKey: ['appointmentOn'],
     queryFn: async () => {
       const response = await fetch(
-        ' https://server-six-weld.vercel.app/appointmentOn'
+        '  https://server-pi-rosy.vercel.app/appointmentOn'
       );
       return response.json();
     },
@@ -48,7 +48,7 @@ const AddDoctor = () => {
           img: result.data.url,
         };
         if (result.success) {
-          fetch(' https://server-six-weld.vercel.app/doctors', {
+          fetch('  https://server-pi-rosy.vercel.app/doctors', {
             method: 'POST',
             headers: {
               'Content-Type': 'application/json',

@@ -74,7 +74,7 @@ const LoginPage = () => {
       name,
     };
 
-    fetch(` https://server-six-weld.vercel.app/users`, {
+    fetch(`  https://server-pi-rosy.vercel.app/users`, {
       method: 'POST',
       headers: {
         'content-type': 'Application/json',

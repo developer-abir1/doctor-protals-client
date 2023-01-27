@@ -19,7 +19,7 @@ const CheckOutFrom = ({ booking }) => {
 
   useEffect(() => {
     // Create PaymentIntent as soon as the page loads
-    fetch('https://server-six-weld.vercel.app/create-payment-intent', {
+    fetch(' https://server-pi-rosy.vercel.app/create-payment-intent', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -84,7 +84,7 @@ const CheckOutFrom = ({ booking }) => {
         email,
       };
 
-      fetch(`https://server-six-weld.vercel.app/payment`, {
+      fetch(` https://server-pi-rosy.vercel.app/payment`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

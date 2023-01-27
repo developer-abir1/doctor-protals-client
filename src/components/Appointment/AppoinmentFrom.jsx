@@ -30,7 +30,7 @@ const AppoinmentFrom = ({
       email: user.email,
       price: price,
     };
-    fetch(`https://server-six-weld.vercel.app/bookings`, {
+    fetch(` https://server-pi-rosy.vercel.app/bookings`, {
       method: 'POST',
       headers: {
         'content-type': 'Application/json',
