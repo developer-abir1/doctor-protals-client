@@ -20,10 +20,6 @@ const DashboardLayout = () => {
 
   const [isAdmin, isAdminLoading] = useAdmin(user?.email);
 
-  if (loading || isAdminLoading) {
-    return <Loading />;
-  }
-
   return (
     <div className="flex justify-between flex-col min-h-screen ">
       <NavAdmin />

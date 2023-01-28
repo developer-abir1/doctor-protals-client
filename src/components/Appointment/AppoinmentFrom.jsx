@@ -30,7 +30,7 @@ const AppoinmentFrom = ({
       email: user.email,
       price: price,
     };
-    fetch(`   https://doctor-protal-server.vercel.app/bookings`, {
+    fetch(`    https://doctor-server-side-delta.vercel.app/bookings`, {
       method: 'POST',
       headers: {
         'content-type': 'Application/json',

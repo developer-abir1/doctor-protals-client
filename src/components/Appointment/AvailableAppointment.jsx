@@ -18,7 +18,7 @@ const AvailableAppointment = ({ seletedDate }) => {
     queryKey: ['appointmentOn', date],
     queryFn: async () => {
       const response = await fetch(
-        `   https://doctor-protal-server.vercel.app/appointmentOn?date=${date}`,
+        `    https://doctor-server-side-delta.vercel.app/appointmentOn?date=${date}`,
         {
           headers: {
             authorization: `Bearer ${localStorage.getItem('accessToken')}`,

@@ -19,14 +19,17 @@ const CheckOutFrom = ({ booking }) => {
 
   useEffect(() => {
     // Create PaymentIntent as soon as the page loads
-    fetch('   https://doctor-protal-server.vercel.app/create-payment-intent', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-        authentication: `Bearer ${localStorage.getItem('accessToken')}`,
-      },
-      body: JSON.stringify({ price }),
-    })
+    fetch(
+      '    https://doctor-server-side-delta.vercel.app/create-payment-intent',
+      {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          authentication: `Bearer ${localStorage.getItem('accessToken')}`,
+        },
+        body: JSON.stringify({ price }),
+      }
+    )
       .then((res) => res.json())
       .then((data) => {
         console.log('client secret', data);
@@ -84,7 +87,7 @@ const CheckOutFrom = ({ booking }) => {
         email,
       };
 
-      fetch(`   https://doctor-protal-server.vercel.app/payment`, {
+      fetch(`    https://doctor-server-side-delta.vercel.app/payment`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

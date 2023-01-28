@@ -18,7 +18,7 @@ const AddDoctor = () => {
     queryKey: ['appointmentOn'],
     queryFn: async () => {
       const response = await fetch(
-        '    https://doctor-protal-server.vercel.app/appointmentOn'
+        '     https://doctor-server-side-delta.vercel.app/appointmentOn'
       );
       return response.json();
     },
@@ -48,7 +48,7 @@ const AddDoctor = () => {
           img: result.data.url,
         };
         if (result.success) {
-          fetch('    https://doctor-protal-server.vercel.app/doctors', {
+          fetch('     https://doctor-server-side-delta.vercel.app/doctors', {
             method: 'POST',
             headers: {
               'Content-Type': 'application/json',
