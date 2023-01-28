@@ -40,7 +40,6 @@ const RegisterAccount = () => {
   //
   const navigate = useNavigate();
   const [token] = useToken(createAccountToken);
-  console.log('main jay ga ', token);
   if (token) {
     navigate('/');
   }
@@ -84,7 +83,7 @@ const RegisterAccount = () => {
       email,
     };
 
-    fetch(`  https://doctor-protal-server.vercel.app/users`, {
+    fetch(`   https://doctor-protal-server.vercel.app/users`, {
       method: 'POST',
       headers: {
         'content-type': 'Application/json',
@@ -94,7 +93,6 @@ const RegisterAccount = () => {
     })
       .then((response) => response.json())
       .then((data) => {
-        console.log('aita diost korce id ki acknolow true', data);
         setCreateAccountToken(email);
       });
   };

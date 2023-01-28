@@ -114,7 +114,7 @@ const routers = createBrowserRouter([
         ),
         loader: ({ params }) =>
           fetch(
-            `   https://doctor-protal-server.vercel.app/bookings/${params.id}`
+            `    https://doctor-protal-server.vercel.app/bookings/${params.id}`
           ),
       },
     ],

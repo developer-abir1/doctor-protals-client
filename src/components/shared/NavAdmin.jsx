@@ -23,7 +23,7 @@ const NavAdmin = () => {
             <AiOutlineMenu size={30} />
           </label>
         </div>
-        <div className="navbar-end      ">
+        <div className="navbar-end  hidden lg:flex   ">
           <h2 className=" capitalize  text-xl font-bold">
             {user?.displayName}
           </h2>

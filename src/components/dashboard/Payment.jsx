@@ -11,7 +11,6 @@ const Payment = () => {
 
   const navigation = useNavigation();
 
-  console.log('a bada paw na kna', bookings);
   const stripePromise = loadStripe(
     'pk_test_51I85aIDmKkqQZHqbKD7uMOTmawwdIop41uaRoa8LKstAJnr1ac5KoGj2xnXCC5Vwx89EI2B9J32gnt07B7VVX0ao00f3CLB3qN'
   );

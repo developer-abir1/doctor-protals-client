@@ -4,6 +4,7 @@ import { AuthContext } from '../../context/AuthProvider';
 import { FaUserCircle } from 'react-icons/fa';
 import { AiOutlineMenu } from 'react-icons/ai';
 
+import photo from '../../assets/image/Dantal.png';
 const Navbar = () => {
   const activeStyle = 'btn  btn-accent text-white bg-accent';
 
@@ -111,8 +112,8 @@ const Navbar = () => {
     <div className="   ">
       <div className="navbar bg-base-100     container m-auto  ">
         <div className="navbar-start">
-          <Link to={'/'} className="btn btn-ghost normal-case text-xl">
-            Doctor Protals
+          <Link to={'/'} className="  normal-case text-xl">
+            <img src={photo} alt="logo" className="   w-[80px] " />
           </Link>
         </div>
 

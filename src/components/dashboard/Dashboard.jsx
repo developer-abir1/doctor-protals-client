@@ -10,7 +10,7 @@ const Dashboard = () => {
     queryKey: ['users'],
     queryFn: async () => {
       const response = await fetch(
-        '    https://doctor-protal-server.vercel.app/users ',
+        '     https://doctor-protal-server.vercel.app/users ',
         {
           headers: {
             authorization: `Bearer ${localStorage.getItem('accessToken')}`,
@@ -24,7 +24,7 @@ const Dashboard = () => {
     queryKey: ['admin'],
     queryFn: async () => {
       const response = await fetch(
-        '    https://doctor-protal-server.vercel.app/booking/admin',
+        '     https://doctor-protal-server.vercel.app/booking/admin',
         {
           headers: {
             authorization: `Bearer ${localStorage.getItem('accessToken')}`,
@@ -41,7 +41,7 @@ const Dashboard = () => {
     queryKey: ['payment'],
     queryFn: async () => {
       const response = await fetch(
-        '  https://doctor-protal-server.vercel.app/payment',
+        '   https://doctor-protal-server.vercel.app/payment',
         {
           headers: {
             authorization: `Bearer ${localStorage.getItem('accessToken')}`,

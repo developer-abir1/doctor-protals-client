@@ -5,11 +5,24 @@ import Loading from '../components/shared/Loading';
 import NavAdmin from '../components/shared/NavAdmin';
 import { AuthContext } from '../context/AuthProvider';
 import useAdmin from '../hooks/useAdmin';
+import { FiLogOut } from 'react-icons/fi';
 
 const DashboardLayout = () => {
-  const { user } = useContext(AuthContext);
+  const { user, logOut, loading } = useContext(AuthContext);
 
-  const [isAdmin] = useAdmin(user?.email);
+  const handleLogout = () => {
+    logOut()
+      .then(() => {
+        localStorage.removeItem('accessToken');
+      })
+      .catch((err) => console.log(err));
+  };
+
+  const [isAdmin, isAdminLoading] = useAdmin(user?.email);
+
+  if (loading || isAdminLoading) {
+    return <Loading />;
+  }
 
   return (
     <div className="flex justify-between flex-col min-h-screen ">
@@ -51,6 +64,15 @@ const DashboardLayout = () => {
                 </li>
               </>
             )}
+          </ul>
+          <ul>
+            <li
+              className="ml-2 flex   btn btn-ghost w-32  "
+              onClick={handleLogout}
+            >
+              <FiLogOut size={28} className="text-green-500 " />{' '}
+              <a className="ml-2">Logout</a>
+            </li>
           </ul>
         </div>
       </div>
