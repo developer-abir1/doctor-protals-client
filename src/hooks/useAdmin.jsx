@@ -5,7 +5,7 @@ const useAdmin = (email) => {
   console.log('vai toi koui', isAdmin);
   const [isAdminLoading, setIsAdminLoading] = useState(true);
   useEffect(() => {
-    fetch(`  https://server-pi-rosy.vercel.app/users/admin/${email}`, {
+    fetch(`  http://localhost:5000/users/admin/${email}`, {
       headers: {
         authorization: `Bearer ${localStorage.getItem('accessToken')}`,
       },

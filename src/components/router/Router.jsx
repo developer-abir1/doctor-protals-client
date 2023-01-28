@@ -65,16 +65,20 @@ const routers = createBrowserRouter([
     errorElement: <DisplayError />,
     children: [
       {
-        path: 'main',
+        path: '/dashboard',
+        element: (
+          <PrivateRoute>
+            <MyAppoinment />
+          </PrivateRoute>
+        ),
+      },
+      {
+        path: 'dashboard',
         element: (
           <AdminRouter>
             <Dashboard />
           </AdminRouter>
         ),
-      },
-      {
-        path: '/dashboard',
-        element: <MyAppoinment />,
       },
       {
         path: 'all-user',
@@ -109,7 +113,7 @@ const routers = createBrowserRouter([
           </PrivateRoute>
         ),
         loader: ({ params }) =>
-          fetch(`  https://server-pi-rosy.vercel.app/bookings/${params.id}`),
+          fetch(`  http://localhost:5000/bookings/${params.id}`),
       },
     ],
   },

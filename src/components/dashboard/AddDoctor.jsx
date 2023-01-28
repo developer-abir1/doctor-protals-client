@@ -17,9 +17,7 @@ const AddDoctor = () => {
   const { data: service = [] } = useQuery({
     queryKey: ['appointmentOn'],
     queryFn: async () => {
-      const response = await fetch(
-        '  https://server-pi-rosy.vercel.app/appointmentOn'
-      );
+      const response = await fetch('  http://localhost:5000/appointmentOn');
       return response.json();
     },
   });
@@ -48,7 +46,7 @@ const AddDoctor = () => {
           img: result.data.url,
         };
         if (result.success) {
-          fetch('  https://server-pi-rosy.vercel.app/doctors', {
+          fetch('  http://localhost:5000/doctors', {
             method: 'POST',
             headers: {
               'Content-Type': 'application/json',

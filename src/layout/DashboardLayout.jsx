@@ -29,17 +29,16 @@ const DashboardLayout = () => {
           <label htmlFor="dashboard-drawer" className="drawer-overlay"></label>
           <ul className="menu p-4 w-80       ">
             {/* <!-- Sidebar content here --> */}
-            {isAdmin && (
-              <li>
-                <Link to="main">Dashbord</Link>
-              </li>
-            )}
+
             <li>
-              <Link to="/dashboard">MY Booking</Link>
+              <Link to="/dashboard">User Dashboard</Link>
             </li>
 
             {isAdmin && (
               <>
+                <li>
+                  <Link to="dashboard">Admin Dashboard</Link>
+                </li>
                 <li>
                   <Link to="all-user">All User info</Link>
                 </li>

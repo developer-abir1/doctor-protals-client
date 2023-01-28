@@ -18,7 +18,7 @@ const AvailableAppointment = ({ seletedDate }) => {
     queryKey: ['appointmentOn', date],
     queryFn: async () => {
       const response = await fetch(
-        ` https://server-pi-rosy.vercel.app/appointmentOn?date=${date}`,
+        ` http://localhost:5000/appointmentOn?date=${date}`,
         {
           headers: {
             authorization: `Bearer ${localStorage.getItem('accessToken')}`,

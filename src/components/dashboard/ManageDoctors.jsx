@@ -14,14 +14,11 @@ const ManageDoctors = () => {
   } = useQuery({
     queryKey: ['doctors'],
     queryFn: async () => {
-      const response = await fetch(
-        '  https://server-pi-rosy.vercel.app/doctors ',
-        {
-          headers: {
-            authorization: `Bearer ${localStorage.getItem('accessToken')}`,
-          },
-        }
-      );
+      const response = await fetch('  http://localhost:5000/doctors ', {
+        headers: {
+          authorization: `Bearer ${localStorage.getItem('accessToken')}`,
+        },
+      });
       return response.json();
     },
   });
@@ -33,7 +30,7 @@ const ManageDoctors = () => {
   const hendleDeleteAdmin = async (doctor) => {
     const id = doctor._id;
 
-    fetch(`  https://server-pi-rosy.vercel.app/doctors/${id}`, {
+    fetch(`  http://localhost:5000/doctors/${id}`, {
       method: 'DELETE',
       headers: {
         authorization: `Bearer ${localStorage.getItem('accessToken')}`,

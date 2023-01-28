@@ -9,28 +9,22 @@ const Dashboard = () => {
   const { data: users, isLoading } = useQuery({
     queryKey: ['users'],
     queryFn: async () => {
-      const response = await fetch(
-        '   https://server-pi-rosy.vercel.app/users ',
-        {
-          headers: {
-            authorization: `Bearer ${localStorage.getItem('accessToken')}`,
-          },
-        }
-      );
+      const response = await fetch('   http://localhost:5000/users ', {
+        headers: {
+          authorization: `Bearer ${localStorage.getItem('accessToken')}`,
+        },
+      });
       return response.json();
     },
   });
   const { data: booking, isLoading: bookingLoading } = useQuery({
     queryKey: ['admin'],
     queryFn: async () => {
-      const response = await fetch(
-        '   https://server-pi-rosy.vercel.app/booking/admin',
-        {
-          headers: {
-            authorization: `Bearer ${localStorage.getItem('accessToken')}`,
-          },
-        }
-      );
+      const response = await fetch('   http://localhost:5000/booking/admin', {
+        headers: {
+          authorization: `Bearer ${localStorage.getItem('accessToken')}`,
+        },
+      });
       return response.json();
     },
   });
@@ -40,14 +34,11 @@ const Dashboard = () => {
   const { data: payment = [], isLoading: paymentLogding } = useQuery({
     queryKey: ['payment'],
     queryFn: async () => {
-      const response = await fetch(
-        ' https://server-pi-rosy.vercel.app/payment',
-        {
-          headers: {
-            authorization: `Bearer ${localStorage.getItem('accessToken')}`,
-          },
-        }
-      );
+      const response = await fetch(' http://localhost:5000/payment', {
+        headers: {
+          authorization: `Bearer ${localStorage.getItem('accessToken')}`,
+        },
+      });
       return response.json();
     },
   });
@@ -66,7 +57,7 @@ const Dashboard = () => {
   };
 
   const total = payment?.reduce((acc, curr) => {
-    return acc + curr.price;
+    return acc + curr?.price;
   }, 0);
 
   if (isLoading || bookingLoading || paymentLogding) {
@@ -74,36 +65,36 @@ const Dashboard = () => {
   }
   return (
     <div>
-      <div className="  grid  grid-cols-4 gap-8 px-4 py-4">
+      <div className="  grid   grid-cols-2 md:grid-cols-4 gap-8 px-4 py-4">
         <div className="h-24  bg-green-500 rounded-md">
-          <h2 className="text-center mt-2 text-2xl font-bold text-white ">
+          <h2 className="text-center mt-2  text-xl md:text-2xl font-bold text-white ">
             User
           </h2>
-          <h2 className="text-center mt-2 text-2xl font-bold text-white ">
+          <h2 className="text-center mt-2 text-xl md:text-2xl font-bold text-white ">
             {users?.length}
           </h2>
         </div>
         <div className="h-24  bg-red-500 rounded-md">
-          <h2 className="text-center mt-2 text-2xl font-bold text-white ">
+          <h2 className="text-center mt-2 text-xl md:text-2xl font-bold text-white ">
             Appointments
           </h2>
-          <h2 className="text-center mt-2 text-2xl font-bold text-white ">
+          <h2 className="text-center mt-2 text-xl md:text-2xl font-bold text-white ">
             {booking?.length}
           </h2>
         </div>
         <div className="h-24  bg-blue-500 rounded-md">
-          <h2 className="text-center mt-2 text-2xl font-bold text-white ">
+          <h2 className="text-center mt-2 text-xl md:text-2xl font-bold text-white ">
             Total Earn
           </h2>
-          <h2 className="text-center mt-2 text-2xl font-bold text-white ">
-            $ {total}
+          <h2 className="text-center mt-2 text-xl md:text-2xl font-bold text-white ">
+            ${total}
           </h2>
         </div>
         <div className="h-24  bg-yellow-500 rounded-md">
-          <h2 className="text-center mt-2 text-2xl font-bold text-white ">
+          <h2 className="text-center mt-2 text-xl md:text-2xl font-bold text-white ">
             Paid Appoinment
           </h2>
-          <h2 className="text-center mt-2 text-2xl font-bold text-white ">
+          <h2 className="text-center mt-2 text-xl md:text-2xl font-bold text-white ">
             {payment.length}
           </h2>
         </div>

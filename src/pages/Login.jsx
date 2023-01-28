@@ -51,22 +51,6 @@ const LoginPage = () => {
       });
   };
 
-  const googleLogin = () => {
-    handleGoogleLogin() // google login
-      .then((result) => {
-        const user = result.user;
-        toast.success(`Login successfully  ${user.displayName} `, {
-          duration: 4000,
-          position: 'bottom-top',
-        });
-
-        handleSavesUser(user.email, user.displayName);
-      })
-      .catch((error) => {
-        setError(error.message);
-      });
-  };
-
   const handleSavesUser = (email, name) => {
     // save user in database
     const users = {
@@ -74,7 +58,7 @@ const LoginPage = () => {
       name,
     };
 
-    fetch(`  https://server-pi-rosy.vercel.app/users`, {
+    fetch(`  http://localhost:5000/users`, {
       method: 'POST',
       headers: {
         'content-type': 'Application/json',
@@ -165,18 +149,6 @@ const LoginPage = () => {
             Login
           </button>
           {content}
-          <div className="flex flex-col w-full border-opacity-50  ">
-            <div className="divider       ">OR</div>
-            <div className="grid h-20 card   rounded-box place-items-center">
-              <button
-                className="btn   w-full"
-                type="button"
-                onClick={googleLogin}
-              >
-                <FcGoogle size={40} className="mr-12" /> CONTINUE WITH GOOGLE
-              </button>
-            </div>
-          </div>
         </form>
       </div>
     </div>
