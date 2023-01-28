@@ -5,7 +5,7 @@ const useAdmin = (email) => {
   console.log('vai toi koui', isAdmin);
   const [isAdminLoading, setIsAdminLoading] = useState(true);
   useEffect(() => {
-    fetch(`  http://localhost:5000/users/admin/${email}`, {
+    fetch(`   https://server-red-omega.vercel.app/users/admin/${email}`, {
       headers: {
         authorization: `Bearer ${localStorage.getItem('accessToken')}`,
       },

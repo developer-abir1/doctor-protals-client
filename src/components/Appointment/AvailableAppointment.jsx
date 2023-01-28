@@ -18,7 +18,7 @@ const AvailableAppointment = ({ seletedDate }) => {
     queryKey: ['appointmentOn', date],
     queryFn: async () => {
       const response = await fetch(
-        ` http://localhost:5000/appointmentOn?date=${date}`,
+        `  https://server-red-omega.vercel.app/appointmentOn?date=${date}`,
         {
           headers: {
             authorization: `Bearer ${localStorage.getItem('accessToken')}`,

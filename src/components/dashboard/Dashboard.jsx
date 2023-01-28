@@ -9,22 +9,28 @@ const Dashboard = () => {
   const { data: users, isLoading } = useQuery({
     queryKey: ['users'],
     queryFn: async () => {
-      const response = await fetch('   http://localhost:5000/users ', {
-        headers: {
-          authorization: `Bearer ${localStorage.getItem('accessToken')}`,
-        },
-      });
+      const response = await fetch(
+        '    https://server-red-omega.vercel.app/users ',
+        {
+          headers: {
+            authorization: `Bearer ${localStorage.getItem('accessToken')}`,
+          },
+        }
+      );
       return response.json();
     },
   });
   const { data: booking, isLoading: bookingLoading } = useQuery({
     queryKey: ['admin'],
     queryFn: async () => {
-      const response = await fetch('   http://localhost:5000/booking/admin', {
-        headers: {
-          authorization: `Bearer ${localStorage.getItem('accessToken')}`,
-        },
-      });
+      const response = await fetch(
+        '    https://server-red-omega.vercel.app/booking/admin',
+        {
+          headers: {
+            authorization: `Bearer ${localStorage.getItem('accessToken')}`,
+          },
+        }
+      );
       return response.json();
     },
   });
@@ -34,11 +40,14 @@ const Dashboard = () => {
   const { data: payment = [], isLoading: paymentLogding } = useQuery({
     queryKey: ['payment'],
     queryFn: async () => {
-      const response = await fetch(' http://localhost:5000/payment', {
-        headers: {
-          authorization: `Bearer ${localStorage.getItem('accessToken')}`,
-        },
-      });
+      const response = await fetch(
+        '  https://server-red-omega.vercel.app/payment',
+        {
+          headers: {
+            authorization: `Bearer ${localStorage.getItem('accessToken')}`,
+          },
+        }
+      );
       return response.json();
     },
   });

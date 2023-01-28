@@ -113,7 +113,7 @@ const routers = createBrowserRouter([
           </PrivateRoute>
         ),
         loader: ({ params }) =>
-          fetch(`  http://localhost:5000/bookings/${params.id}`),
+          fetch(`   https://server-red-omega.vercel.app/bookings/${params.id}`),
       },
     ],
   },

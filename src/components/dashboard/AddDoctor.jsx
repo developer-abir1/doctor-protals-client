@@ -17,7 +17,9 @@ const AddDoctor = () => {
   const { data: service = [] } = useQuery({
     queryKey: ['appointmentOn'],
     queryFn: async () => {
-      const response = await fetch('  http://localhost:5000/appointmentOn');
+      const response = await fetch(
+        '   https://server-red-omega.vercel.app/appointmentOn'
+      );
       return response.json();
     },
   });
@@ -46,7 +48,7 @@ const AddDoctor = () => {
           img: result.data.url,
         };
         if (result.success) {
-          fetch('  http://localhost:5000/doctors', {
+          fetch('   https://server-red-omega.vercel.app/doctors', {
             method: 'POST',
             headers: {
               'Content-Type': 'application/json',

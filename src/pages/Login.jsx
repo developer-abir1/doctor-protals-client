@@ -58,7 +58,7 @@ const LoginPage = () => {
       name,
     };
 
-    fetch(`  http://localhost:5000/users`, {
+    fetch(`   https://server-red-omega.vercel.app/users`, {
       method: 'POST',
       headers: {
         'content-type': 'Application/json',
