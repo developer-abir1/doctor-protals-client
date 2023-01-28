@@ -84,7 +84,7 @@ const RegisterAccount = () => {
       email,
     };
 
-    fetch(`  https://server-red-omega.vercel.app/users`, {
+    fetch(`  https://doctor-protal-server.vercel.app/users`, {
       method: 'POST',
       headers: {
         'content-type': 'Application/json',

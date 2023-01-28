@@ -16,7 +16,7 @@ const MyAppoinment = () => {
     queryKey: ['booking', user?.email],
     queryFn: async () => {
       const response = await fetch(
-        `    https://server-red-omega.vercel.app/bookings?email=${user?.email}`,
+        `    https://doctor-protal-server.vercel.app/bookings?email=${user?.email}`,
         {
           headers: {
             authorization: `Bearer ${localStorage.getItem('accessToken')}`,

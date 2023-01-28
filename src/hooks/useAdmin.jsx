@@ -5,7 +5,7 @@ const useAdmin = (email) => {
   console.log('vai toi koui', isAdmin);
   const [isAdminLoading, setIsAdminLoading] = useState(true);
   useEffect(() => {
-    fetch(`   https://server-red-omega.vercel.app/users/admin/${email}`, {
+    fetch(`   https://doctor-protal-server.vercel.app/users/admin/${email}`, {
       headers: {
         authorization: `Bearer ${localStorage.getItem('accessToken')}`,
       },

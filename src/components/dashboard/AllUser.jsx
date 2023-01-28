@@ -12,7 +12,7 @@ const AllUser = () => {
     queryKey: ['users'],
     queryFn: async () => {
       const response = await fetch(
-        '    https://server-red-omega.vercel.app/users',
+        '    https://doctor-protal-server.vercel.app/users',
         {
           headers: {
             authorization: `Bearer ${localStorage.getItem('accessToken')}`,
@@ -25,7 +25,7 @@ const AllUser = () => {
   console.log(users);
 
   const handelMakeAdmin = (id) => {
-    const url = `   https://server-red-omega.vercel.app/users/admin/${id}`;
+    const url = `   https://doctor-protal-server.vercel.app/users/admin/${id}`;
     fetch(url, {
       method: 'PUT',
       headers: {
@@ -45,7 +45,7 @@ const AllUser = () => {
       });
   };
   const hendleRemovedmin = (id) => {
-    const url = `   https://server-red-omega.vercel.app/admin/${id}`;
+    const url = `   https://doctor-protal-server.vercel.app/admin/${id}`;
     fetch(url, {
       method: 'PUT',
       headers: {
